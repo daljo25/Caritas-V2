@@ -30,9 +30,9 @@ jobs:
       #run: php artisan config:cache
 
     - name: Deploy to shared hosting
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
         server: ftp.sagradocorazonbellavista.com
-        username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.FTP_PASSWORD }}
-        server-dir: ${{ secrets.FTP_DESTINATION }}
+        username: caritas@sagradocorazonbellavista.com
+        password: Caritas.FTP
+        
