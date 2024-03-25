@@ -11,7 +11,7 @@ jobs:
 
     steps:
     - name: Checkout del repositorio
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Configurar entorno PHP
       uses: shivammathur/setup-php@v2
