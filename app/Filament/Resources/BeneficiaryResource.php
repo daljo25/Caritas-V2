@@ -280,6 +280,9 @@ class BeneficiaryResource extends Resource
                 Tables\Columns\TextColumn::make('age')
                     ->label('Edad')
                     ->sortable()
+                    ->state(function (Beneficiary $record): ?string{
+                        return Carbon::parse($record->birth_date)->age;
+                    })
                     ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('address')
                     ->label('Dirección')

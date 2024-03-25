@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\VolunteerResource\Pages;
 use App\Filament\Resources\VolunteerResource\RelationManagers;
 use App\Models\Volunteer;
+use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -77,6 +78,13 @@ class VolunteerResource extends Resource
                     ->label('Fecha de Nacimiento')
                     ->date()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('age')
+                    ->label('Edad')
+                    ->sortable()
+                    ->state(function (Volunteer $record): ?string {
+                        return Carbon::parse($record->birth_date)->age;
+                    })
+                    ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('gender')
                     ->searchable()
                     ->sortable()

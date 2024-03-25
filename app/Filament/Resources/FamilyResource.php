@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\FamilyResource\Pages;
 use App\Filament\Resources\FamilyResource\RelationManagers;
 use App\Models\Family;
+use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Tabs;
@@ -197,6 +198,13 @@ class FamilyResource extends Resource
                     ->label('Fecha de Nacimiento')
                     ->date()
                     ->sortable(),
+                    Tables\Columns\TextColumn::make('age')
+                    ->label('Edad')
+                    ->sortable()
+                    ->state(function (Family $record): ?string{
+                        return Carbon::parse($record->birth_date)->age;
+                    })
+                    ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('relationship')
                     ->label('Parentesco')
                     ->searchable(),
