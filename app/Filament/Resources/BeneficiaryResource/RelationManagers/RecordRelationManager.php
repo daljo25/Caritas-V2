@@ -14,18 +14,22 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class RecordRelationManager extends RelationManager
 {
     protected static string $relationship = 'Record';
+    protected static ?string $label = 'Historial';
 
     public function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\Select::make('volunteer_id')
+                    ->label('Voluntario')
                     ->required()
                     ->relationship('Volunteer', 'name'),
                 Forms\Components\DatePicker::make('date')
+                    ->label('Fecha')
                     ->required()
                     ->default(Carbon::now()->format('d-m-Y')),
                 Forms\Components\RichEditor::make('incident')
+                    ->label('Incidente')
                     ->required()
                     ->columnSpanFull(),
             ]);
@@ -36,10 +40,12 @@ class RecordRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('id')
             ->columns([
-                Tables\Columns\TextColumn::make('id'),
-                Tables\Columns\TextColumn::make('Volunteer.name'),
-                Tables\Columns\TextColumn::make('date'),
+                Tables\Columns\TextColumn::make('Volunteer.name')
+                    ->label('Voluntario'),
+                Tables\Columns\TextColumn::make('date')
+                    ->label('Fecha'),
                 Tables\Columns\TextColumn::make('incident')
+                    ->label('Incidente')
                     ->words(10)
                     ->wrap()
                     ->html(),

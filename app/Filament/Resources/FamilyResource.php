@@ -38,6 +38,7 @@ class FamilyResource extends Resource
                                     ->schema([
                                         // titular
                                         Forms\Components\Select::make('beneficiary_id')
+                                            ->label('Beneficiario Titular')
                                             ->relationship('beneficiary', 'name')
                                             ->searchable()
                                             ->preload()
@@ -47,15 +48,21 @@ class FamilyResource extends Resource
                                     ->schema([
                                         // datos del familiar
                                         Forms\Components\TextInput::make('name')
+                                            ->label('Nombres y Apellidos')
                                             ->required()
                                             ->maxLength(255),
                                         Forms\Components\TextInput::make('dni')
+                                            ->label('DNI / NIE / PAS')
                                             ->maxLength(255),
-                                        Forms\Components\DatePicker::make('expiration_date'),
+                                        Forms\Components\DatePicker::make('expiration_date')
+                                            ->label('Fecha de Vencimiento'),
                                         Country::make('nationality')
+                                            ->label('Nacionalidad')
                                             ->searchable(),
-                                        Forms\Components\DatePicker::make('birth_date'),
+                                        Forms\Components\DatePicker::make('birth_date')
+                                            ->label('Fecha de Nacimiento'),
                                         Forms\Components\Select::make('relationship')
+                                            ->label('Parentesco')
                                             ->options([
                                                 'Esposo/a' => 'Esposo/a',
                                                 'Hijo' => 'Hijo',
@@ -69,12 +76,15 @@ class FamilyResource extends Resource
                                                 'Otro' => 'Otro',
                                             ]),
                                         Forms\Components\TextInput::make('phone')
+                                            ->label('Teléfono')
                                             ->tel()
                                             ->maxLength(255),
                                         Forms\Components\TextInput::make('email')
+                                            ->label('Correo Electrónico')
                                             ->email()
                                             ->maxLength(255),
                                         Forms\Components\TextInput::make('education')
+                                            ->label('Nivel de Educación')
                                             ->maxLength(255),
                                     ])
                             ])
@@ -85,20 +95,26 @@ class FamilyResource extends Resource
                                 Fieldset::make('Informe de Vida Laboral')
                                     ->schema([
                                         //documentos ivl
-                                        Forms\Components\DatePicker::make('ivl_emission_date'),
-                                        Forms\Components\DatePicker::make('ivl_alta_date'),
-                                        Forms\Components\DatePicker::make('ivl_baja_date'),
+                                        Forms\Components\DatePicker::make('ivl_emission_date')
+                                            ->label('Fecha de Emisión'),
+                                        Forms\Components\DatePicker::make('ivl_alta_date')
+                                            ->label('Fecha de Alta'),
+                                        Forms\Components\DatePicker::make('ivl_baja_date')
+                                            ->label('Fecha de Baja'),
                                     ])
                                     ->columns(3),
                                 Fieldset::make('Certificado de Pensionista')
                                     ->schema([
                                         //documentos cdp
-                                        Forms\Components\DatePicker::make('cdp_emission_date'),
+                                        Forms\Components\DatePicker::make('cdp_emission_date')
+                                            ->label('Fecha de Emisión'),
                                         Forms\Components\Toggle::make('cdp_state')
+                                            ->label('Positivo o Negativo')
                                             ->onColor('success')
                                             ->offColor('danger')
                                             ->inline(false),
                                         Forms\Components\TextInput::make('cdp_amount')
+                                            ->label('Monto')
                                             ->numeric()
                                             ->inputMode('decimal')
                                             ->prefixIcon('heroicon-o-currency-euro'),
@@ -107,12 +123,15 @@ class FamilyResource extends Resource
                                 Fieldset::make('SEPE')
                                     ->schema([
                                         //documentos sepe
-                                        Forms\Components\DatePicker::make('sepe_emission_date'),
+                                        Forms\Components\DatePicker::make('sepe_emission_date')
+                                            ->label('Fecha de Emisión'),
                                         Forms\Components\Toggle::make('sepe_state')
+                                            ->label('Positivo o Negativo')
                                             ->onColor('success')
                                             ->offColor('danger')
                                             ->inline(false),
                                         Forms\Components\TextInput::make('sepe_amount')
+                                            ->label('Monto')
                                             ->numeric()
                                             ->inputMode('decimal')
                                             ->prefixIcon('heroicon-o-currency-euro'),
@@ -121,12 +140,15 @@ class FamilyResource extends Resource
                                 Fieldset::make('Renta Minima Vital')
                                     ->schema([
                                         //documentos rmv
-                                        Forms\Components\DatePicker::make('rmv_emission_date'),
+                                        Forms\Components\DatePicker::make('rmv_emission_date')
+                                            ->label('Fecha de Emisión'),
                                         Forms\Components\Toggle::make('rmv_state')
+                                            ->label('Positivo o Negativo')
                                             ->onColor('success')
                                             ->offColor('danger')
                                             ->inline(false),
                                         Forms\Components\TextInput::make('rmv_amount')
+                                            ->label('Monto')
                                             ->numeric()
                                             ->inputMode('decimal')
                                             ->prefixIcon('heroicon-o-currency-euro'),
@@ -135,12 +157,15 @@ class FamilyResource extends Resource
                                 Fieldset::make('REMISA')
                                     ->schema([
                                         //documentos remisa
-                                        Forms\Components\DatePicker::make('remisa_emission_date'),
+                                        Forms\Components\DatePicker::make('remisa_emission_date')
+                                            ->label('Fecha de Emisión'),
                                         Forms\Components\Toggle::make('remisa_state')
+                                            ->label('Positivo o Negativo')
                                             ->onColor('success')
                                             ->offColor('danger')
                                             ->inline(false),
                                         Forms\Components\TextInput::make('remisa_amount')
+                                            ->label('Monto')
                                             ->numeric()
                                             ->inputMode('decimal')
                                             ->prefixIcon('heroicon-o-currency-euro'),
@@ -158,22 +183,31 @@ class FamilyResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('beneficiary.name')
+                    ->label('Beneficiario Titular')
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nombres y Apellidos')
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('dni')
+                    ->label('DNI / NIE / PAS')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('birth_date')
+                    ->label('Fecha de Nacimiento')
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('relationship')
+                    ->label('Parentesco')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phone')
+                    ->label('Teléfono')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
+                    ->label('Correo Electrónico')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('education')
+                    ->label('Nivel de Educación')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

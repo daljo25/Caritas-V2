@@ -44,11 +44,13 @@ class BeneficiaryResource extends Resource
                                             ->required()
                                             ->relationship('Volunteer', 'name')
                                             ->searchable()
-                                            ->preload(),
+                                            ->preload()
+                                            ->label('Voluntario'),
                                         Forms\Components\Select::make('state')
                                             ->required()
                                             ->hiddenOn('create')
                                             ->default('Activo')
+                                            ->label('Estado')
                                             ->options([
                                                 'Activo' => 'Activo',
                                                 'Pasivo' => 'Pasivo',
@@ -60,30 +62,40 @@ class BeneficiaryResource extends Resource
                                         // datos del beneficiario
                                         Forms\Components\TextInput::make('name')
                                             ->required()
-                                            ->maxLength(255),
+                                            ->maxLength(255)
+                                            ->label('Nombres y Apellidos'),
                                         Forms\Components\TextInput::make('expedient')
-                                            ->maxLength(255),
+                                            ->maxLength(255)
+                                            ->label('Nº de Expediente'),
                                         Forms\Components\TextInput::make('dni')
-                                            ->maxLength(255),
+                                            ->maxLength(255)
+                                            ->label('DNI / NIE / PAS'),
                                         Forms\Components\DatePicker::make('expiration_date'),
                                         Country::make('nationality')
+                                            ->label('Nacionalidad')
                                             ->searchable(),
-                                        Forms\Components\DatePicker::make('birth_date'),
+                                        Forms\Components\DatePicker::make('birth_date')
+                                            ->label('Fecha de Nacimiento'),
                                         Forms\Components\TextInput::make('address')
+                                            ->label('Dirección')
                                             ->maxLength(255),
                                         Forms\Components\TextInput::make('phone')
+                                            ->label('Número de Telefono')
                                             ->tel()
                                             ->maxLength(255),
                                         Forms\Components\TextInput::make('email')
+                                            ->label('Correo Electronico')
                                             ->email()
                                             ->maxLength(255),
                                         Forms\Components\TextInput::make('education')
+                                            ->label('Nivel de Educación')
                                             ->maxLength(255),
                                     ]),
                                 Fieldset::make('Datos Socioeconomicos')
                                     ->schema([
                                         // datos socioeconomicos
                                         Forms\Components\Select::make('housing_type')
+                                            ->label('Tipo de Vivienda')
                                             ->options([
                                                 'Propia' => 'Propia',
                                                 'Alquilada' => 'Alquilada',
@@ -92,26 +104,32 @@ class BeneficiaryResource extends Resource
                                                 'Ocupada' => 'Ocupada',
                                             ]),
                                         Forms\Components\TextInput::make('incomes')
+                                            ->label('Ingresos')
                                             ->numeric()
                                             ->inputMode('decimal')
                                             ->prefixIcon('heroicon-o-currency-euro'),
                                         Forms\Components\TextInput::make('light')
+                                            ->label('Luz')
                                             ->numeric()
                                             ->inputMode('decimal')
                                             ->prefixIcon('heroicon-o-currency-euro'),
                                         Forms\Components\TextInput::make('water')
+                                            ->label('Agua')
                                             ->numeric()
                                             ->inputMode('decimal')
                                             ->prefixIcon('heroicon-o-currency-euro'),
                                         Forms\Components\TextInput::make('rent')
+                                            ->label('Alquiler')
                                             ->numeric()
                                             ->inputMode('decimal')
                                             ->prefixIcon('heroicon-o-currency-euro'),
                                         Forms\Components\TextInput::make('community')
+                                            ->label('Comunidad')
                                             ->numeric()
                                             ->inputMode('decimal')
                                             ->prefixIcon('heroicon-o-currency-euro'),
                                         Forms\Components\TextInput::make('others')
+                                            ->label('Otros')
                                             ->numeric()
                                             ->inputMode('decimal')
                                             ->prefixIcon('heroicon-o-currency-euro'),
@@ -124,34 +142,44 @@ class BeneficiaryResource extends Resource
                                     ->schema([
                                         //documentos generales
                                         Forms\Components\Toggle::make('family_book')
+                                            ->label('Libro de Familia')
                                             ->onColor('success')
                                             ->offColor('danger')
                                             ->inline(false),
                                         Forms\Components\Toggle::make('rent_contract')
+                                            ->label('Contrato de Alquiler')
                                             ->onColor('success')
                                             ->offColor('danger')
                                             ->inline(false),
-                                        Forms\Components\DatePicker::make('census_emission_date'),
+                                        Forms\Components\DatePicker::make('census_emission_date')
+                                            ->label('Padron Municipal'),
                                         Forms\Components\TextInput::make('social_assistance_name')
+                                            ->label('Asistente Social')
                                             ->maxLength(255),
                                     ]),
                                 Fieldset::make('Informe de Vida Laboral')
                                     ->schema([
                                         //documentos ivl
-                                        Forms\Components\DatePicker::make('ivl_emission_date'),
-                                        Forms\Components\DatePicker::make('ivl_alta_date'),
-                                        Forms\Components\DatePicker::make('ivl_baja_date'),
+                                        Forms\Components\DatePicker::make('ivl_emission_date')
+                                            ->label('Fecha de Emision'),
+                                        Forms\Components\DatePicker::make('ivl_alta_date')
+                                            ->label('Fecha de Alta'),
+                                        Forms\Components\DatePicker::make('ivl_baja_date')
+                                            ->label('Fecha de Baja'),
                                     ])
                                     ->columns(3),
                                 Fieldset::make('Certificado de Pensionista')
                                     ->schema([
                                         //documentos cdp
-                                        Forms\Components\DatePicker::make('cdp_emission_date'),
+                                        Forms\Components\DatePicker::make('cdp_emission_date')
+                                            ->label('Fecha de Emision'),
                                         Forms\Components\Toggle::make('cdp_state')
+                                            ->label('Positivo o Negativo')
                                             ->onColor('success')
                                             ->offColor('danger')
                                             ->inline(false),
                                         Forms\Components\TextInput::make('cdp_amount')
+                                            ->label('Monto')
                                             ->numeric()
                                             ->inputMode('decimal')
                                             ->prefixIcon('heroicon-o-currency-euro'),
@@ -160,12 +188,15 @@ class BeneficiaryResource extends Resource
                                 Fieldset::make('SEPE')
                                     ->schema([
                                         //documentos sepe
-                                        Forms\Components\DatePicker::make('sepe_emission_date'),
+                                        Forms\Components\DatePicker::make('sepe_emission_date')
+                                            ->label('Fecha de Emision'),
                                         Forms\Components\Toggle::make('sepe_state')
+                                            ->label('Positivo o Negativo')
                                             ->onColor('success')
                                             ->offColor('danger')
                                             ->inline(false),
                                         Forms\Components\TextInput::make('sepe_amount')
+                                            ->label('Monto')
                                             ->numeric()
                                             ->inputMode('decimal')
                                             ->prefixIcon('heroicon-o-currency-euro'),
@@ -174,12 +205,15 @@ class BeneficiaryResource extends Resource
                                 Fieldset::make('Renta Minima Vital')
                                     ->schema([
                                         //documentos rmv
-                                        Forms\Components\DatePicker::make('rmv_emission_date'),
+                                        Forms\Components\DatePicker::make('rmv_emission_date')
+                                            ->label('Fecha de Emision'),
                                         Forms\Components\Toggle::make('rmv_state')
+                                            ->label('Positivo o Negativo')
                                             ->onColor('success')
                                             ->offColor('danger')
                                             ->inline(false),
                                         Forms\Components\TextInput::make('rmv_amount')
+                                            ->label('Monto')
                                             ->numeric()
                                             ->inputMode('decimal')
                                             ->prefixIcon('heroicon-o-currency-euro'),
@@ -188,12 +222,15 @@ class BeneficiaryResource extends Resource
                                 Fieldset::make('REMISA')
                                     ->schema([
                                         //documentos remisa
-                                        Forms\Components\DatePicker::make('remisa_emission_date'),
+                                        Forms\Components\DatePicker::make('remisa_emission_date')
+                                            ->label('Fecha de Emision'),
                                         Forms\Components\Toggle::make('remisa_state')
+                                            ->label('Positivo o Negativo')
                                             ->onColor('success')
                                             ->offColor('danger')
                                             ->inline(false),
                                         Forms\Components\TextInput::make('remisa_amount')
+                                            ->label('Monto')
                                             ->numeric()
                                             ->inputMode('decimal')
                                             ->prefixIcon('heroicon-o-currency-euro'),
@@ -210,44 +247,57 @@ class BeneficiaryResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('volunteer.name')
+                    ->label('Voluntario')
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nombres y Apellidos')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('expedient')
+                    ->label('Exp')
                     ->searchable()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('dni')
+                    ->label('DNI / NIE / PAS')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('expiration_date')
+                    ->label('Fecha de Vencimiento')
                     ->date()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('nationality')
+                    ->label('Nacionalidad')
                     ->searchable()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('birth_date')
+                    ->label('Fecha de Nacimiento')
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('age')
+                    ->label('Edad')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('address')
+                    ->label('Dirección')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('phone')
+                    ->label('Teléfono')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
+                    ->label('Correo Electrónico')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('education')
+                    ->label('Nivel de Educación')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('state')
+                    ->label('Estado')
                     ->searchable()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: false),

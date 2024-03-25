@@ -6,6 +6,7 @@ use App\Filament\Resources\CollaboratorResource\Pages;
 use App\Filament\Resources\CollaboratorResource\RelationManagers;
 use App\Models\Collaborator;
 use Filament\Forms;
+use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -26,30 +27,62 @@ class CollaboratorResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required(),
-                Forms\Components\TextInput::make('address'),
-                Forms\Components\TextInput::make('website')
-                    ->url(),
-                Forms\Components\TextInput::make('responsable'),
-                Forms\Components\TextInput::make('position'),
-                Forms\Components\TextInput::make('email')
-                    ->email(),
-                Forms\Components\TextInput::make('phone')
-                    ->tel(),
-                Forms\Components\TextInput::make('responsable2'),
-                Forms\Components\TextInput::make('position2'),
-                Forms\Components\TextInput::make('email2')
-                    ->email(),
-                Forms\Components\TextInput::make('phone2')
-                    ->tel(),
-                Forms\Components\Textarea::make('notes')
-                    ->maxLength(65535)
-                    ->columnSpanFull(),
-                Forms\Components\FileUpload::make('image')
-                    ->image()
-                    ->columnSpanFull(),
-
+                Fieldset::make('Datos de la Empresa u Organizmo')
+                    ->schema([
+                        Forms\Components\TextInput::make('name')
+                            ->maxLength(255)
+                            ->label('Nombre')
+                            ->required(),
+                        Forms\Components\TextInput::make('address')
+                            ->maxLength(255)
+                            ->label('Dirección'),
+                        Forms\Components\TextInput::make('website')
+                            ->maxLength(255)
+                            ->label('Sitio web')
+                            ->url(),
+                        Forms\Components\Textarea::make('notes')
+                            ->label('Notas')
+                            ->maxLength(65535)
+                            ->columnSpanFull(),
+                        Forms\Components\FileUpload::make('image')
+                            ->label('Imagen')
+                            ->image()
+                            ->columnSpanFull(),
+                    ]),
+                Fieldset::make('Persona Responsable')
+                    ->schema([
+                        Forms\Components\TextInput::make('responsable')
+                            ->maxLength(255)
+                            ->label('Nombres y Apellidos'),
+                        Forms\Components\TextInput::make('position')
+                            ->maxLength(255)
+                            ->label('Cargo'),
+                        Forms\Components\TextInput::make('email')
+                            ->maxLength(255)
+                            ->label('Correo electrónico')
+                            ->email(),
+                        Forms\Components\TextInput::make('phone')
+                            ->maxLength(255)
+                            ->label('Telefono')
+                            ->tel(),
+                    ]),
+                Fieldset::make('Otro Contacto')
+                    ->schema([
+                        Forms\Components\TextInput::make('responsable2')
+                            ->maxLength(255)
+                            ->label('Nombres y Apellidos'),
+                        Forms\Components\TextInput::make('position2')
+                            ->maxLength(255)
+                            ->label('Cargo'),
+                        Forms\Components\TextInput::make('email2')
+                            ->maxLength(255)
+                            ->label('Correo electrónico')
+                            ->email(),
+                        Forms\Components\TextInput::make('phone2')
+                            ->maxLength(255)
+                            ->label('Telefono')
+                            ->tel(),
+                    ]),
             ]);
     }
 
@@ -57,19 +90,47 @@ class CollaboratorResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('address'),
-                Tables\Columns\TextColumn::make('website'),
-                Tables\Columns\ImageColumn::make('image'),
-                Tables\Columns\TextColumn::make('responsable'),
-                Tables\Columns\TextColumn::make('position'),
-                Tables\Columns\TextColumn::make('email'),
-                Tables\Columns\TextColumn::make('phone'),
-                Tables\Columns\TextColumn::make('responsable2'),
-                Tables\Columns\TextColumn::make('position2'),
-                Tables\Columns\TextColumn::make('email2'),
-                Tables\Columns\TextColumn::make('phone2'),
+                Tables\Columns\TextColumn::make('name')
+                    ->label('Nombre')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('address')
+                    ->label('Dirección')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('website')
+                    ->label('Sitio Web')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\ImageColumn::make('image')
+                    ->label('Imagen'),
+                Tables\Columns\TextColumn::make('responsable')
+                    ->label('Responsable')
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('position')
+                    ->label('Cargo')
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('email')
+                    ->label('Correo')
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('phone')
+                    ->label('Teléfono')
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('responsable2')
+                    ->label('Responsable')
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('position2')
+                    ->label('Cargo')
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('email2')
+                    ->label('Correo')
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('phone2')
+                    ->label('Teléfono')
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('notes')
+                    ->label('Notas')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->limit(20),
             ])
             ->filters([

@@ -27,27 +27,36 @@ class VolunteerResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Nombres y Apellidos')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('dni')
+                    ->label('DNI / NIE / PAS')
                     ->maxLength(255),
-                Forms\Components\DatePicker::make('birth_date'),
+                Forms\Components\DatePicker::make('birth_date')
+                    ->label('Fecha de Nacimiento'),
                 Forms\Components\Select::make('gender')
+                    ->label('Género')
                     ->options([
                         'Masculino' => 'Masculino',
                         'Femenino' => 'Femenino',
                     ]),
                 Forms\Components\TextInput::make('address')
+                    ->label('Dirección')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('phone')
+                    ->label('Teléfono')
                     ->tel()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('email')
+                    ->label('Correo Electrónico')
                     ->email()
                     ->maxLength(255),
                 Forms\Components\Textarea::make('notes')
+                    ->label('Notas')
                     ->maxLength(65535),
                 Forms\Components\FileUpload::make('image')
+                    ->label('Imagen')
                     ->image()
                     ->columnSpanFull(),
             ]);
@@ -58,29 +67,39 @@ class VolunteerResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nombres y Apellidos')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('dni')
+                    ->label('DNI / NIE / PAS')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('birth_date')
+                    ->label('Fecha de Nacimiento')
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('gender')
+                    ->searchable()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('address')
+                    ->label('Dirección')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('phone')
+                    ->label('Teléfono')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
+                    ->label('Correo Electrónico')
                     ->searchable(),
-                Tables\Columns\ImageColumn::make('image'),
+                Tables\Columns\ImageColumn::make('image')
+                    ->label('Imagen'),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Fecha de Creación')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Fecha de Actualización')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

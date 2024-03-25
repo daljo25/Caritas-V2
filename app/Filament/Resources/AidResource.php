@@ -33,16 +33,20 @@ class AidResource extends Resource
                             ->relationship('beneficiary', 'name')
                             ->searchable()
                             ->preload()
-                            ->required(),
+                            ->required()
+                            ->label('Beneficiario'),
                         Forms\Components\Select::make('volunteer_id')
                             ->relationship('volunteer', 'name')
                             ->searchable()
                             ->preload()
-                            ->required(),
+                            ->required()
+                            ->label('Voluntario'),
                     ]),
                 Fieldset::make('Ayuda')
                     ->schema([
                         Forms\Components\Select::make('type')
+                            ->label('Tipo de Ayuda')
+                            ->required()
                             ->options([
                                 'Lucha Contra la Pobresa Energetica' => [
                                     'Pago de suministro' => 'Pago de suministro',
@@ -86,6 +90,7 @@ class AidResource extends Resource
                                 ]
                             ]),
                         Forms\Components\Select::make('status')
+                            ->label('Etapa')
                             ->options([
                                 'En Estudio' => 'En Estudio',
                                 'Aceptada' => 'Aceptada',
@@ -96,28 +101,33 @@ class AidResource extends Resource
                             ->relationship('collaborator', 'name')
                             ->searchable()
                             ->preload()
-                            ->required(),
+                            ->required()
+                            ->label('Colaborador'),
                     ]),
                 Fieldset::make('Fecha y Cantidad')
                     ->schema([
-                        Forms\Components\DatePicker::make('start_date'),
-                        Forms\Components\DatePicker::make('end_date'),
+                        Forms\Components\DatePicker::make('start_date')
+                            ->label('Fecha de Inicio'),
+                        Forms\Components\DatePicker::make('end_date')
+                            ->label('Fecha de Fin'),
                         Forms\Components\TextInput::make('approved_amount')
                             ->numeric()
                             ->inputMode('decimal')
-                            ->prefixIcon('heroicon-o-currency-euro'),
+                            ->prefixIcon('heroicon-o-currency-euro')
+                            ->label('Importe mensual'),
                         Forms\Components\TextInput::make('total_amount')
                             ->numeric()
                             ->inputMode('decimal')
                             ->prefixIcon('heroicon-o-currency-euro')
-                            ->default(null),
+                            ->label('Importe Total'),
                     ]),
                 Fieldset::make('Notas')
                     ->schema([
                         Forms\Components\Textarea::make('notes')
                             ->maxLength(255)
                             ->default(null)
-                            ->columnSpanFull(),
+                            ->columnSpanFull()
+                            ->label('Notas'),
                     ]),
 
             ]);
@@ -128,44 +138,57 @@ class AidResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('type')
+                    ->label('Tipo de Ayuda')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('status')
+                    ->label('Etapa')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('beneficiary.name')
+                    ->searchable()
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->label('Beneficiario'),
                 Tables\Columns\TextColumn::make('volunteer.name')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->label('Voluntario'),
                 Tables\Columns\TextColumn::make('collaborator.name')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->label('Colaborador'),
                 Tables\Columns\TextColumn::make('start_date')
                     ->date()
                     ->sortable()
+                    ->label('Fecha de Inicio')
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('end_date')
                     ->date()
                     ->sortable()
+                    ->label('Fecha de Fin')
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('approved_amount')
                     ->numeric()
                     ->sortable()
+                    ->label('Importe mensual')
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('total_amount')
                     ->numeric()
                     ->sortable()
+                    ->label('Importe Total')
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('notes')
                     ->searchable()
+                    ->label('Notas')
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
+                    ->label('Creado')
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
+                    ->label('Actualizado')
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([

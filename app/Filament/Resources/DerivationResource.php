@@ -30,11 +30,13 @@ class DerivationResource extends Resource
                 Fieldset::make('Titular y Voluntario')
                     ->schema([
                         Forms\Components\Select::make('beneficiary_id')
+                            ->label('Beneficiario')
                             ->relationship('beneficiary', 'name')
                             ->required()
                             ->preload()
                             ->searchable(),
                         Forms\Components\Select::make('volunteer_id')
+                            ->label('Voluntario')
                             ->relationship('volunteer', 'name')
                             ->required()
                             ->preload()
@@ -43,16 +45,19 @@ class DerivationResource extends Resource
                 Fieldset::make('Derivación')
                     ->schema([
                         Forms\Components\Select::make('collaborator_id')
+                            ->label('Colaborador')
                             ->relationship('collaborator', 'name')
                             ->required()
                             ->preload()
                             ->searchable()
                             ->columnSpanFull(),
                         Forms\Components\Textarea::make('reason')
+                            ->label('Motivo')
                             ->required()
                             ->maxLength(255)
                             ->columnSpanFull(),
                         Forms\Components\Textarea::make('observation')
+                            ->label('Observaciones')
                             ->required()
                             ->maxLength(255)
                             ->columnSpanFull(),
@@ -66,19 +71,24 @@ class DerivationResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('beneficiary.name')
+                    ->label('Beneficiario')
                     ->numeric()
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('volunteer.name')
+                    ->label('Voluntario')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('collaborator.name')
+                    ->label('Colaborador')
                     ->numeric()
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('reason')
+                    ->label('Motivo')
                     ->words(10),
                 Tables\Columns\TextColumn::make('observation')
+                    ->label('Observaciones')
                     ->words(10),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
