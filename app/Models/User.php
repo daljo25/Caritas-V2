@@ -11,7 +11,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -46,8 +46,8 @@ class User extends Authenticatable implements FilamentUser
         'password' => 'hashed',
     ];
 
-    public function canAccessPanel(Panel $panel): bool
-    {
-        return str_ends_with($this->email, '@sagradocorazonbellavista.com') && $this->hasVerifiedEmail();
-    }
+    //public function canAccessPanel(Panel $panel): bool
+    //{
+    //    return str_ends_with($this->email, '@sagradocorazonbellavista.com') && $this->hasVerifiedEmail();
+    //}
 }
