@@ -27,6 +27,7 @@ class DashboardPanelProvider extends PanelProvider
             ->id('dashboard')
             ->path('dashboard')
             ->login()
+            ->sidebarCollapsibleOnDesktop()
             ->brandLogo(asset('images/logo.svg'))
             ->brandLogoHeight('2.5rem')
             ->favicon(asset('images/favicon.svg'))

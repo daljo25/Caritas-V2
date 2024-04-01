@@ -5,6 +5,8 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\DerivationResource\Pages;
 use App\Filament\Resources\DerivationResource\RelationManagers;
 use App\Models\Derivation;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+use Barryvdh\DomPDF\PDF;
 use Filament\Forms;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Form;
@@ -12,7 +14,9 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Blade;
 
 class DerivationResource extends Resource
 {
@@ -104,6 +108,17 @@ class DerivationResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('pdf') 
+                    ->label('PDF')
+                    ->color('success')
+                    ->icon('tabler-download')
+                    ->action(function (Model $record) {
+                        return response()->streamDownload(function () use ($record) {
+                            echo FacadePdf::loadHtml(
+                                Blade::render('pdf.derivation', ['record' => $record])
+                            )->stream();
+                        },'Derivacion de ' . $record->Beneficiary->name .' a '. $record->Collaborator->name . '.pdf');
+                    }), 
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

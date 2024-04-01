@@ -5,6 +5,8 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\BeneficiaryResource\Pages;
 use App\Filament\Resources\BeneficiaryResource\RelationManagers;
 use App\Models\Beneficiary;
+use Barryvdh\DomPDF\PDF;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Closure;
 use Carbon\Carbon;
 use Filament\Forms;
@@ -17,6 +19,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Fieldset;
 use Filament\Resources\RelationManagers\RelationManager;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Blade;
 use Parfaitementweb\FilamentCountryField\Forms\Components\Country;
 
 class BeneficiaryResource extends Resource
@@ -306,11 +310,30 @@ class BeneficiaryResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: false),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('state')
+                    ->options([
+                        'Activo' => 'Activo',
+                        'Pasivo' => 'Pasivo',
+                        'Archivado' => 'Archivado',
+                    ])
+                    ->label('Estado')
+                    ->attribute('state')
+                    ->multiple(),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('pdf') 
+                    ->label('PDF')
+                    ->color('success')
+                    ->icon('tabler-download')
+                    ->action(function (Model $record) {
+                        return response()->streamDownload(function () use ($record) {
+                            echo FacadePdf::loadHtml(
+                                Blade::render('pdf.intervention', ['record' => $record])
+                            )->stream();
+                        },'Hoja de Intervención de ' . $record->name . '.pdf');
+                    })  , 
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
