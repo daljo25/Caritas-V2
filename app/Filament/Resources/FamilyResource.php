@@ -10,6 +10,7 @@ use Filament\Forms;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -110,15 +111,17 @@ class FamilyResource extends Resource
                                         Forms\Components\DatePicker::make('cdp_emission_date')
                                             ->label('Fecha de Emisión'),
                                         Forms\Components\Toggle::make('cdp_state')
-                                            ->label('Positivo o Negativo')
+                                            ->label('Negativo o Positivo')
                                             ->onColor('success')
                                             ->offColor('danger')
-                                            ->inline(false),
+                                            ->inline(false)
+                                            ->live(),
                                         Forms\Components\TextInput::make('cdp_amount')
                                             ->label('Monto')
                                             ->numeric()
                                             ->inputMode('decimal')
-                                            ->prefixIcon('heroicon-o-currency-euro'),
+                                            ->prefixIcon('heroicon-o-currency-euro')
+                                            ->visible(fn (Get $get): bool => $get('cdp_state')),
                                     ])
                                     ->columns(3),
                                 Fieldset::make('SEPE')
@@ -127,15 +130,17 @@ class FamilyResource extends Resource
                                         Forms\Components\DatePicker::make('sepe_emission_date')
                                             ->label('Fecha de Emisión'),
                                         Forms\Components\Toggle::make('sepe_state')
-                                            ->label('Positivo o Negativo')
+                                            ->label('Negativo o Positivo')
                                             ->onColor('success')
                                             ->offColor('danger')
-                                            ->inline(false),
+                                            ->inline(false)
+                                            ,
                                         Forms\Components\TextInput::make('sepe_amount')
                                             ->label('Monto')
                                             ->numeric()
                                             ->inputMode('decimal')
-                                            ->prefixIcon('heroicon-o-currency-euro'),
+                                            ->prefixIcon('heroicon-o-currency-euro')
+                                            ->visible(fn (Get $get): bool => $get('sepe_state')),
                                     ])
                                     ->columns(3),
                                 Fieldset::make('Renta Minima Vital')
@@ -144,15 +149,17 @@ class FamilyResource extends Resource
                                         Forms\Components\DatePicker::make('rmv_emission_date')
                                             ->label('Fecha de Emisión'),
                                         Forms\Components\Toggle::make('rmv_state')
-                                            ->label('Positivo o Negativo')
+                                            ->label('Negativo o Positivo')
                                             ->onColor('success')
                                             ->offColor('danger')
-                                            ->inline(false),
+                                            ->inline(false)
+                                            ->live(),
                                         Forms\Components\TextInput::make('rmv_amount')
                                             ->label('Monto')
                                             ->numeric()
                                             ->inputMode('decimal')
-                                            ->prefixIcon('heroicon-o-currency-euro'),
+                                            ->prefixIcon('heroicon-o-currency-euro')
+                                            ->visible(fn (Get $get): bool => $get('rmv_state')),
                                     ])
                                     ->columns(3),
                                 Fieldset::make('REMISA')
@@ -161,15 +168,17 @@ class FamilyResource extends Resource
                                         Forms\Components\DatePicker::make('remisa_emission_date')
                                             ->label('Fecha de Emisión'),
                                         Forms\Components\Toggle::make('remisa_state')
-                                            ->label('Positivo o Negativo')
+                                            ->label('Negativo o Positivo')
                                             ->onColor('success')
                                             ->offColor('danger')
-                                            ->inline(false),
+                                            ->inline(false)
+                                            ->live(),
                                         Forms\Components\TextInput::make('remisa_amount')
                                             ->label('Monto')
                                             ->numeric()
                                             ->inputMode('decimal')
-                                            ->prefixIcon('heroicon-o-currency-euro'),
+                                            ->prefixIcon('heroicon-o-currency-euro')
+                                            ->visible(fn (Get $get): bool => $get('remisa_state')),
                                     ])
                                     ->columns(3),
                             ])
