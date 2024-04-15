@@ -21,7 +21,7 @@ use Parfaitementweb\FilamentCountryField\Forms\Components\Country;
 class FamilyResource extends Resource
 {
     protected static ?string $model = Family::class;
-    protected static ?string $navigationGroup = 'Beneficiarios';
+    protected static ?string $navigationGroup = 'Usuarios';
     protected static ?string $label = 'Familiares';
     protected static ?string $navigationIcon = 'tabler-users-group';
     protected static ?string $recordTitleAttribute = 'Familiares';
@@ -36,11 +36,11 @@ class FamilyResource extends Resource
                         Tabs\Tab::make('Datos del Familiar')
                             ->icon('tabler-user')
                             ->schema([
-                                Fieldset::make('Beneficiario Titular')
+                                Fieldset::make('Usuario Titular')
                                     ->schema([
                                         // titular
                                         Forms\Components\Select::make('beneficiary_id')
-                                            ->label('Beneficiario Titular')
+                                            ->label('Usuario Titular')
                                             ->relationship('beneficiary', 'name')
                                             ->searchable()
                                             ->preload()
@@ -193,7 +193,7 @@ class FamilyResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('beneficiary.name')
-                    ->label('Beneficiario Titular')
+                    ->label('Usuario Titular')
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('name')

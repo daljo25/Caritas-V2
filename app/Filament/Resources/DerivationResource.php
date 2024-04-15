@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Blade;
 class DerivationResource extends Resource
 {
     protected static ?string $model = Derivation::class;
-    protected static ?string $navigationGroup = 'Beneficiarios';
+    protected static ?string $navigationGroup = 'Usuarios';
     protected static ?string $label = 'Derivaciones';
     protected static ?string $navigationIcon = 'tabler-directions';
     protected static ?string $recordTitleAttribute = 'Derivaciones';
@@ -34,7 +34,7 @@ class DerivationResource extends Resource
                 Fieldset::make('Titular y Voluntario')
                     ->schema([
                         Forms\Components\Select::make('beneficiary_id')
-                            ->label('Beneficiario')
+                            ->label('Usuario')
                             ->relationship('beneficiary', 'name')
                             ->required()
                             ->preload()
@@ -75,7 +75,7 @@ class DerivationResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('beneficiary.name')
-                    ->label('Beneficiario')
+                    ->label('Usuario')
                     ->numeric()
                     ->sortable()
                     ->searchable(),

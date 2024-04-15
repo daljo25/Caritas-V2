@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Blade;
 class AidResource extends Resource
 {
     protected static ?string $model = Aid::class;
-    protected static ?string $navigationGroup = 'Beneficiarios';
+    protected static ?string $navigationGroup = 'Usuarios';
     protected static ?string $navigationLabel = 'Ayudas';
     protected static ?string $navigationIcon = 'tabler-coin-euro';
     protected static ?string $recordTitleAttribute = 'Ayudas';
@@ -41,7 +41,7 @@ class AidResource extends Resource
                             ->searchable()
                             ->preload()
                             ->required()
-                            ->label('Beneficiario'),
+                            ->label('Usuario'),
                         Forms\Components\Select::make('volunteer_id')
                             ->relationship('volunteer', 'name')
                             ->searchable()
@@ -154,7 +154,7 @@ class AidResource extends Resource
                     ->searchable()
                     ->numeric()
                     ->sortable()
-                    ->label('Beneficiario'),
+                    ->label('Usuario'),
                 Tables\Columns\TextColumn::make('volunteer.name')
                     ->numeric()
                     ->sortable()
@@ -226,20 +226,7 @@ class AidResource extends Resource
                         },'Ayuda de ' . $record->type .' a '. $record->Beneficiary->name . '.pdf');
                     })  , 
             ])
-            ->headerActions([
-                Tables\Actions\Action::make('COVIRAN')
-                    ->label('COVIRAN')
-                    ->color('success')
-                    ->icon('tabler-printer')
-                    ->action(function (Aid $aid) {
-                        return response()->streamDownload(function () use ($aid) {
-                            echo FacadePdf::loadHtml(
-                                Blade::render('pdf.coviran', ['record' => $aid])
-                            )->stream();
-                        }, 'COVIRAN ' . date('m-Y') .'.pdf');
-                    }),
-            ])
-            
+                        
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),

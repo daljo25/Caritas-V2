@@ -27,10 +27,10 @@ use Parfaitementweb\FilamentCountryField\Forms\Components\Country;
 class BeneficiaryResource extends Resource
 {
     protected static ?string $model = Beneficiary::class;
-    protected static ?string $navigationGroup = 'Beneficiarios';
-    protected static ?string $label = 'Beneficiario';
+    protected static ?string $navigationGroup = 'Usuarios';
+    protected static ?string $label = 'Usuario';
     protected static ?string $navigationIcon = 'tabler-user-circle';
-    protected static ?string $recordTitleAttribute = 'Beneficiarios';
+    protected static ?string $recordTitleAttribute = 'Usuarios';
     protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
@@ -39,7 +39,7 @@ class BeneficiaryResource extends Resource
             ->schema([
                 Tabs::make('Tabs')
                     ->tabs([
-                        Tabs\Tab::make('Datos del beneficiario')
+                        Tabs\Tab::make('Datos del Usuario')
                             ->icon('tabler-user')
                             ->schema([
                                 Fieldset::make('Voluntario')
@@ -64,7 +64,7 @@ class BeneficiaryResource extends Resource
                                     ]),
                                 Fieldset::make('Datos Personales')
                                     ->schema([
-                                        // datos del beneficiario
+                                        // datos del Usuario
                                         Forms\Components\TextInput::make('name')
                                             ->required()
                                             ->maxLength(255)
