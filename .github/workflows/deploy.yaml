@@ -19,7 +19,9 @@ jobs:
         php-version: '8.2.11'
 
     #- name: Install dependencies
-    #  run: composer install --no-dev --prefer-dist --no-scripts --no-progress --no-suggest
+      run: composer install
+      run: composer upgrade
+      run: php artisan optimize:clear
 
 #    - name: Configure env
 #      env:
