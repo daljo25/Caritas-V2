@@ -43,6 +43,7 @@ class BeneficiaryResource extends Resource
                             ->icon('tabler-user')
                             ->schema([
                                 Fieldset::make('Voluntario')
+                                    ->color('danger')
                                     ->schema([
                                         // voluntario y estado
                                         Forms\Components\Select::make('volunteer_id')
@@ -75,7 +76,8 @@ class BeneficiaryResource extends Resource
                                         Forms\Components\TextInput::make('dni')
                                             ->maxLength(255)
                                             ->label('DNI / NIE / PAS'),
-                                        Forms\Components\DatePicker::make('expiration_date'),
+                                        Forms\Components\DatePicker::make('expiration_date')
+                                            ->label('Fecha de Vencimiento'),
                                         Country::make('nationality')
                                             ->label('Nacionalidad')
                                             ->searchable(),
@@ -368,4 +370,6 @@ class BeneficiaryResource extends Resource
             'edit' => Pages\EditBeneficiary::route('/{record}/edit'),
         ];
     }
+    
+
 }
