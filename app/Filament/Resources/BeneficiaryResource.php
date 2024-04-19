@@ -43,7 +43,6 @@ class BeneficiaryResource extends Resource
                             ->icon('tabler-user')
                             ->schema([
                                 Fieldset::make('Voluntario')
-                                    ->color('danger')
                                     ->schema([
                                         // voluntario y estado
                                         Forms\Components\Select::make('volunteer_id')

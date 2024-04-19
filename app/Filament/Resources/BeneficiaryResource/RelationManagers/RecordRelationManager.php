@@ -15,7 +15,9 @@ class RecordRelationManager extends RelationManager
 {
     protected static string $relationship = 'Record';
     protected static ?string $label = 'Historial';
+    protected static ?string $title = 'Historial';
 
+    
     public function form(Form $form): Form
     {
         return $form

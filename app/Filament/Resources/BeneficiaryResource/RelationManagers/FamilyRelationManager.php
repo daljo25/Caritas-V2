@@ -20,6 +20,7 @@ class FamilyRelationManager extends RelationManager
 {
     protected static string $relationship = 'Family';
     protected static ?string $label = 'Familiares';
+    protected static ?string $title = 'Familiares';
     
 
     public function form(Form $form): Form
