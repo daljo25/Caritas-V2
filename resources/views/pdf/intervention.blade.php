@@ -64,7 +64,7 @@
 </head>
 
 <body>
-    <div class="text-center"><h2>Hoja de Intervencion</h2></div>
+    <div class="text-center"><h2>Hoja de Intervención</h2></div>
     <table>
         <tr>
             <td width="20%">Nº Exp: {{ $record->expedient }}</td>
@@ -77,7 +77,7 @@
         <tr>
             <td>Fecha: {{ date("d/m/Y") }}</td>
             <td>DNI/NIE/PAS: {{ $record->dni }}</td>
-            <td>Caducidad: {{ $record->expiration_date }}</td>
+            <td>Caducidad: {{ \Carbon\Carbon::parse($record->expiration_date)->format('d/m/Y') }}</td>
         </tr>
         <tr>
             <td>Domicilio: {{ $record->address }}</td>
@@ -99,13 +99,13 @@
             <td width="10%">Parentesco</td>
             <td width="10%">F. Nac.</td>
             <td width="10%">Edad</td>
-            <td width="10%">Formacion</td>
+            <td width="10%">Formación</td>
         </tr>
         @foreach ($record->Family as $member)
             <tr>
                 <td>{{ $member->name }}</td>
                 <td>{{ $member->dni }}</td>
-                <td>{{ $member->expiration_date }}</td>
+                <td>{{ \Carbon\Carbon::parse($member->expiration_date)->format('d/m/Y') }}</td>
                 <td>{{ $member->relationship }}</td>
                 <td>{{ \Carbon\Carbon::parse($member->birth_date)->format('d/m/Y') }}</td>
                 <td>{{ \Carbon\Carbon::parse($member->birth_date)->age }}</td>
@@ -120,17 +120,17 @@
             <td width="16%">Vivienda Habitual:</td>
             <td width="16%">{{ $record->housing_type }}</td>
             <td width="16%">Igresos Brutos:</td>
-            <td width="16%">{{ $record->incomes }} €</td>
+            <td width="16%">{{ $record->incomes != null ? $record->incomes : 0 }} €</td>
             <td width="16%">Ingresos - Gastos:</td>
             <td width="16%">{{ $Total = $record->incomes - ($record->light + $record->water + $record->community + $record->rent + $record->others) }} €</td>
         </tr>
         <tr>
             <td width="16%">Gastos Fijos Mensuales:</td>
-            <td width="16%">Luz: {{ $record->light }} €</td>
-            <td width="16%">Agua: {{ $record->water }} €</td>
-            <td width="16%">Cominidad: {{ $record->community }} €</td>
-            <td width="16%">Alquiler/Hipoteca: {{ $record->rent }} €</td>
-            <td width="16%">Otros: {{ $record->others }} €</td>
+            <td width="16%">Luz: {{ $record->light != null ? $record->light : 0 }} €</td>
+            <td width="16%">Agua: {{ $record->water != null ? $record->water : 0 }} €</td>
+            <td width="16%">Cominidad: {{ $record->community != null ? $record->community : 0 }} €</td>
+            <td width="16%">Alquiler/Hipoteca: {{ $record->rent != null ? $record->rent : 0 }} €</td>
+            <td width="16%">Otros: {{ $record->others != null ? $record->others : 0 }} €</td>
         </tr>
     </table><br>
 
@@ -147,9 +147,9 @@
             <td colspan="3">
                 <table>
                     <tr>
-                        <td width="38%" class="noborder">Titular: {{ Carbon\Carbon::parse($record->ivl_emission_date)->format('d/m/Y')}}</td>
-                        <td width="25%" class="noborder">{{ Carbon\Carbon::parse($record->ivl_alta_date)->format('d/m/Y')}}</td>
-                        <td width="25%" class="noborder">{{ Carbon\Carbon::parse($record->ivl_baja_date)->format('d/m/Y')}}</td>
+                        <td width="38%" class="noborder">Titular: {{ $record->ivl_emission_date != null ? Carbon\Carbon::parse($record->ivl_emission_date)->format('d/m/Y') : '' }} </td>
+                        <td width="25%" class="noborder">{{ $record->ivl_alta_date != null ? Carbon\Carbon::parse($record->ivl_alta_date)->format('d/m/Y') : ''}}</td>
+                        <td width="25%" class="noborder">{{ $record->ivl_baja_date != null ? Carbon\Carbon::parse($record->ivl_baja_date)->format('d/m/Y') : ''}}</td>
                     </tr>
                     @foreach ($record->Family as $member)
                         @php
@@ -157,9 +157,9 @@
                         @endphp
                         @if ($edad >= 18)
                             <tr>
-                                <td  class="noborder">{{$member->relationship}}: {{ Carbon\Carbon::parse($member->ivl_emission_date)->format('d/m/Y') }}</td>
-                                <td  class="noborder">{{Carbon\Carbon::parse($member->ivl_alta_date)->format('d/m/Y')}}</td>
-                                <td  class="noborder">{{Carbon\Carbon::parse($member->ivl_baja_date)->format('d/m/Y')}}</td>
+                                <td  class="noborder">{{$member->relationship}}: {{ $record->ivl_emission_date != null ? Carbon\Carbon::parse($member->ivl_emission_date)->format('d/m/Y') : '' }}</td>
+                                <td  class="noborder">{{ $member->ivl_alta_date != null ? Carbon\Carbon::parse($member->ivl_alta_date)->format('d/m/Y') : ''}}</td>
+                                <td  class="noborder">{{ $member->ivl_baja_date != null ? Carbon\Carbon::parse($member->ivl_baja_date)->format('d/m/Y') : ''}}</td>
                             </tr>
                         @endif
                     @endforeach
@@ -177,7 +177,7 @@
             <td colspan="3">
                 <table>
                     <tr>
-                        <td width="38%" class="noborder">Titular: {{ Carbon\Carbon::parse($record->cdp_emission_date)->format('d/m/Y') }}</td>
+                        <td width="38%" class="noborder">Titular: {{ $record->cdp_emission_date != null ? Carbon\Carbon::parse($record->cdp_emission_date)->format('d/m/Y') : '' }}</td>
                         <td width="25%" class="noborder">{{$record->cdp_state == true ? $record->cdp_amount : '' }}</td>
                         <td width="25%" class="noborder">{{$record->cdp_state == false ? 'X' : '' }}</td>
                     </tr>
@@ -187,7 +187,7 @@
                         @endphp
                         @if ($edad >= 18)
                             <tr>
-                                <td class="noborder">{{$member->relationship}}: {{ Carbon\Carbon::parse($member->cdp_emission_date)->format('d/m/Y') }}</td>
+                                <td class="noborder">{{$member->relationship}}: {{ $member->cdp_emission_date != null ? Carbon\Carbon::parse($member->cdp_emission_date)->format('d/m/Y') : '' }}</td>
                                 <td class="noborder">{{$member->cdp_state == true ? $member->cdp_amount : '' }}</td>
                                 <td class="noborder">{{$member->cdp_state == false ? 'X' : '' }}</td>
                             </tr>
@@ -201,7 +201,7 @@
             <td colspan="3">
                 <table>
                     <tr>
-                        <td width="38%" class="noborder">Titular: {{ Carbon\Carbon::parse($record->sepe_emission_date)->format('d/m/Y') }}</td>
+                        <td width="38%" class="noborder">Titular: {{ $record->sepe_emission_date != null ? Carbon\Carbon::parse($record->sepe_emission_date)->format('d/m/Y') : '' }}</td>
                         <td width="25%" class="noborder">{{$record->sepe_state == true ? $record->sepe_amount : '' }}</td>
                         <td width="25%" class="noborder">{{$record->sepe_state == false ? 'X' : '' }}</td>
                     </tr>
@@ -211,7 +211,7 @@
                         @endphp
                         @if ($edad >= 18)
                             <tr>
-                                <td class="noborder">{{$member->relationship}}: {{ Carbon\Carbon::parse($member->sepe_emission_date)->format('d/m/Y') }}</td>
+                                <td class="noborder">{{$member->relationship}}: {{ $member->sepe_emission_date != null ? Carbon\Carbon::parse($member->sepe_emission_date)->format('d/m/Y') : '' }}</td>
                                 <td class="noborder">{{$member->sepe_state == true ? $member->sepe_amount : '' }}</td>
                                 <td class="noborder">{{$member->sepe_state == false ? 'X' : '' }}</td>
                             </tr>
@@ -225,7 +225,7 @@
             <td colspan="3">
                 <table>
                     <tr>
-                        <td width="38%" class="noborder">Titular: {{ Carbon\Carbon::parse($record->rmv_emission_date)->format('d/m/Y') }}</td>
+                        <td width="38%" class="noborder">Titular: {{ $record->rmv_emission_date != null ? Carbon\Carbon::parse($record->rmv_emission_date)->format('d/m/Y') : '' }}</td>
                         <td width="25%" class="noborder">{{$record->rmv_state == true ? $record->rmv_amount : '' }}</td>
                         <td width="25%" class="noborder">{{$record->rmv_state == false ? 'X' : '' }}</td>
                     </tr>
@@ -235,7 +235,7 @@
                         @endphp
                         @if ($edad >= 18)
                             <tr>
-                                <td class="noborder">{{$member->relationship}}: {{ Carbon\Carbon::parse($member->rmv_emission_date)->format('d/m/Y') }}</td>
+                                <td class="noborder">{{$member->relationship}}: {{ $member->rmv_emission_date != null ? Carbon\Carbon::parse($member->rmv_emission_date)->format('d/m/Y') : '' }}</td>
                                 <td class="noborder">{{$member->rmv_state == true ? $member->rmv_amount : '' }}</td>
                                 <td class="noborder">{{$member->rmv_state == false ? 'X' : '' }}</td>
                             </tr>
@@ -249,7 +249,7 @@
             <td colspan="3">
                 <table>
                     <tr>
-                        <td width="38%" class="noborder">Titular: {{ Carbon\Carbon::parse($record->remisa_emission_date)->format('d/m/Y') }}</td>
+                        <td width="38%" class="noborder">Titular: {{ $record->remisa_emission_date != null ? Carbon\Carbon::parse($record->remisa_emission_date)->format('d/m/Y') : '' }}</td>
                         <td width="25%" class="noborder">{{$record->remisa_state == true ? $record->remisa_amount : '' }}</td>
                         <td width="25%" class="noborder">{{$record->remisa_state == false ? 'X' : '' }}</td>
                     </tr>
@@ -259,7 +259,7 @@
                         @endphp
                         @if ($edad >= 18)
                             <tr>
-                                <td class="noborder">{{$member->relationship}}: {{ Carbon\Carbon::parse($member->remisa_emission_date)->format('d/m/Y') }}</td>
+                                <td class="noborder">{{$member->relationship}}: {{ $member->remisa_emission_date != null ? Carbon\Carbon::parse($member->remisa_emission_date)->format('d/m/Y') : '' }}</td>
                                 <td class="noborder">{{$member->remisa_state == true ? $member->remisa_amount : '' }}</td>
                                 <td class="noborder">{{$member->remisa_state == false ? 'X' : '' }}</td>
                             </tr>
@@ -271,7 +271,7 @@
         <tr>
             <td>Padrón municipal</td>
             <td>Fecha de Emision</td>
-            <td colspan="2">{{ $record->census_emission_date }}</td>
+            <td colspan="2">{{ Carbon\Carbon::parse($record->municipal_registration_date)->format('d/m/Y') }}</td>
         </tr>
         <tr>
             <td>Libro de famila	</td>
