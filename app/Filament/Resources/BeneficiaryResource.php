@@ -125,7 +125,7 @@ class BeneficiaryResource extends Resource
                                             ->inputMode('decimal')
                                             ->prefixIcon('heroicon-o-currency-euro'),
                                         Forms\Components\TextInput::make('rent')
-                                            ->label('Alquiler')
+                                            ->label('Alquiler/Hipoteca')
                                             ->numeric()
                                             ->inputMode('decimal')
                                             ->prefixIcon('heroicon-o-currency-euro'),
@@ -263,7 +263,8 @@ class BeneficiaryResource extends Resource
                 Tables\Columns\TextColumn::make('volunteer.name')
                     ->label('Voluntario')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nombres y Apellidos')
                     ->searchable()
