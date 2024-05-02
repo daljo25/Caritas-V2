@@ -23,6 +23,9 @@ use Filament\Resources\RelationManagers\RelationManager;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Blade;
 use Parfaitementweb\FilamentCountryField\Forms\Components\Country;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use pxlrbt\FilamentExcel\Columns\Column;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
 class BeneficiaryResource extends Resource
 {
@@ -348,7 +351,10 @@ class BeneficiaryResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    ExportBulkAction::make()->exports([
+                        ExcelExport::make()->fromTable(),
+                        //falta hacer el export personalizado para el formato que desea el sr sabino
+                    ]),
                 ]),
             ]);
     }

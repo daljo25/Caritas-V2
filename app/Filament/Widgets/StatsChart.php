@@ -7,6 +7,8 @@ use Filament\Widgets\ChartWidget;
 class StatsChart extends ChartWidget
 {
     protected static ?string $heading = 'Ayudas';
+    protected static ?int $sort = 2;
+    protected static ?string $maxHeight = '300px';
 
     protected function getData(): array
 {

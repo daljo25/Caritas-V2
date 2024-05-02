@@ -42,10 +42,44 @@ class Beneficiary extends Model
 
     ];
 
-    public function age(): Attribute
+    //calculo de edades de familiares
+    public function getUnder2CountAttribute()
     {
-        return Attribute::make(
-            get: fn() => Carbon::parse($this->date_of_birth)->age,
-        );
+        return $this->Family->filter(function ($familyMember) {
+            $age = Carbon::parse($familyMember->birth_date)->age;
+            return $age != null && $age <= 2;
+        })->count();
+    }
+
+    public function getFrom2To8CountAttribute()
+    {
+        return $this->Family->filter(function ($familyMember) {
+            $age = Carbon::parse($familyMember->birth_date)->age;
+            return $age != null && $age >= 2 && $age <= 8;
+        })->count();
+    }
+
+    public function getFrom8To14CountAttribute()
+    {
+        return $this->Family->filter(function ($familyMember) {
+            $age = Carbon::parse($familyMember->birth_date)->age;
+            return $age != null && $age > 8 && $age <= 14;
+        })->count();
+    }
+
+    public function getFrom14To18CountAttribute()
+    {
+        return $this->Family->filter(function ($familyMember) {
+            $age = Carbon::parse($familyMember->birth_date)->age;
+            return $age != null && $age > 14 && $age <= 18;
+        })->count();
+    }
+
+    public function getOver18CountAttribute()
+    {
+        return $this->Family->filter(function ($familyMember) {
+            $age = Carbon::parse($familyMember->birth_date)->age;
+            return $age != null && $age > 18;
+        })->count();
     }
 }
