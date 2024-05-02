@@ -35,8 +35,11 @@ class NationalityChart extends ChartWidget
         $nationalityCounts = $this->getNationalityCounts();
 
         $labels = $nationalityCounts->map(function ($item) {
-            return country_flag($item->nationality) . ' ' . $item->nationality; // Incluye la bandera
-        })->toArray();
+            $nationality = $item->nationality ?? 'UN'; // Asignar un valor por defecto
+            $flag = $nationality === 'UN' ? country_flag('UN') : country_flag($nationality);
+            
+            return $flag . ' ' . $nationality; // Incluye la bandera y el nombre
+            })->toArray();
         $data = $nationalityCounts->pluck('count')->toArray(); // Cantidades por nacionalidad
 
         return [
