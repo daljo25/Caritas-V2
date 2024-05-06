@@ -26,6 +26,7 @@ class MonthlyReportResource extends Resource
     protected static ?string $label = 'Reporte Mensual';
     protected static ?string $navigationIcon = 'tabler-calendar-month';
     protected static ?string $recordTitleAttribute = 'Reporte Mensual';
+    protected static ?string $pluralLabel = 'Reportes Mensuales';
     protected static ?int $navigationSort = 8;
 
 
