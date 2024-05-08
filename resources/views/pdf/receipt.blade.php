@@ -96,7 +96,7 @@
         <table>
             <tr>
                 <td width="10%">D./Dña.</td>
-                <td width="90%"><strong>{{ $record->Beneficiary->name }}</strong></td>
+                <td width="90%"><strong>{{ $record->Beneficiary->expedient }} {{ $record->Beneficiary->name }}</strong></td>
 
             </tr>
         </table>
