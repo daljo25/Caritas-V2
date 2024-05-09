@@ -10,6 +10,7 @@ class NationalityChart extends ChartWidget
 {
     protected static ?string $heading = 'Pais de Origen';
     protected static ?int $sort = 3;
+    protected static ?string $pollingInterval = null;
     protected static ?string $maxHeight = '300px';
 
     protected function getData(): array

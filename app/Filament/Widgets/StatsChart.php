@@ -8,6 +8,7 @@ class StatsChart extends ChartWidget
 {
     protected static ?string $heading = 'Ayudas';
     protected static ?int $sort = 2;
+    protected static ?string $pollingInterval = null;
     protected static ?string $maxHeight = '300px';
 
     protected function getData(): array
