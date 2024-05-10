@@ -22,7 +22,7 @@ class ListBeneficiaries extends ListRecords
                 ->label('Listado de Usuarios')
                 ->color('info')
                 ->icon('tabler-file-type-xls')
-                ->url('export/beneficiaries'),
+                ->url('beneficiaries/export/beneficiaries'),
             Actions\CreateAction::make(),
         ];
     }

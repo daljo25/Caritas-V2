@@ -32,7 +32,7 @@ class ListAids extends ListRecords
                 ->label('Lista de Ayudas')
                 ->color('info')
                 ->icon('tabler-file-type-xls')
-                ->url('export/aids'),
+                ->url('aids/export/aids'),
             Actions\CreateAction::make(),
         ];
     }
