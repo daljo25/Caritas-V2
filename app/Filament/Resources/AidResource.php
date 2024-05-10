@@ -139,7 +139,7 @@ class AidResource extends Resource
 
             ]);
     }
-
+    
     public static function table(Table $table): Table
     {
         return $table
@@ -209,6 +209,20 @@ class AidResource extends Resource
                     ->attribute('status')
                     ->label('Etapa')
                     ->multiple(),
+                Tables\Filters\SelectFilter::make('collaborator')
+                    ->relationship('collaborator', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->label('Colaborador'),
+                    Tables\Filters\SelectFilter::make('type')
+                    ->options(fn () => Aid::select('type')
+                        ->distinct()
+                        ->pluck('type', 'type')
+                        ->toArray()
+                        )
+                    ->searchable()
+                    ->preload()
+                    ->label('Tipo de Ayuda'),
 
             ])
             ->actions([
