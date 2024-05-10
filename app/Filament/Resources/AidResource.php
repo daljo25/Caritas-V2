@@ -210,7 +210,7 @@ class AidResource extends Resource
                     ->label('Etapa')
                     ->multiple(),
                 Tables\Filters\SelectFilter::make('collaborator')
-                    ->relationship('collaborator', 'name')
+                    ->relationship('collaborator', 'name' , fn (Builder $query) => $query->whereIn('id', Aid::pluck('collaborator_id')->unique()))
                     ->searchable()
                     ->preload()
                     ->label('Colaborador'),
