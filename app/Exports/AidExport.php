@@ -17,7 +17,9 @@ class AidExport implements FromCollection, WithHeadings, WithMapping, WithTitle,
      */
     public function collection()
     {
-        return Aid::with('beneficiary.Family')->get(); // Cargar la relación con Beneficiary y Family
+        return Aid::where('status', 'Aceptada')
+            ->with('beneficiary.Family')
+            ->get();
     }
 
     /**
