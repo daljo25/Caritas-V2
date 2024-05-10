@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ExportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect('/dashboard');
 });
+Route::get('/dashboard/beneficiaries/export/beneficiaries', [ExportController::class, 'beneficiaries'])->name('export.beneficiaries');
+Route::get('/dashboard/aids/export/aids', [ExportController::class, 'aids'])->name('export.aids');

@@ -276,7 +276,7 @@ class BeneficiaryResource extends Resource
                     ->label('Exp')
                     ->searchable()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('dni')
                     ->label('DNI / NIE / PAS')
                     ->searchable()
@@ -353,7 +353,7 @@ class BeneficiaryResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     ExportBulkAction::make()->exports([
                         ExcelExport::make()->fromTable(),
-                        //falta hacer el export personalizado para el formato que desea el sr sabino
+                        //export basico en excel para los datos de la tabla 
                     ]),
                 ]),
             ]);

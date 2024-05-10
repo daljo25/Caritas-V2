@@ -28,6 +28,11 @@ class ListAids extends ListRecords
                             )->stream();
                         }, 'COVIRAN ' . date('m-Y') .'.pdf');
                     }),
+            Actions\Action::make('export')
+                ->label('Lista de Ayudas')
+                ->color('info')
+                ->icon('tabler-file-type-xls')
+                ->url('export/aids'),
             Actions\CreateAction::make(),
         ];
     }
