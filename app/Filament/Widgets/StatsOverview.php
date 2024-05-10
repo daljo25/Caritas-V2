@@ -30,7 +30,7 @@ class StatsOverview extends BaseWidget
     //funcion para el total de ayudas en el año en curso
     protected function totalaids() {
         $currentYear = Carbon::now()->year;
-        $aids = \App\Models\Aid::whereYear('created_at', $currentYear)->get();
+        $aids = \App\Models\Aid::whereYear('start_date', $currentYear)->get();
         $totalaids = $aids->count();
         return $totalaids;
     }

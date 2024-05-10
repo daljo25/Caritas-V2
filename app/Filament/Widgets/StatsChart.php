@@ -22,8 +22,8 @@ class StatsChart extends ChartWidget
     // Iteramos sobre los meses del año
     for ($month = 1; $month <= 12; $month++) {
         // Obtenemos el total de ayudas creadas en el mes actual
-        $totalAids = \App\Models\Aid::whereYear('created_at', $currentYear)
-            ->whereMonth('created_at', $month)
+        $totalAids = \App\Models\Aid::whereYear('start_date', $currentYear)
+            ->whereMonth('start_date', $month)
             ->count();
 
         // Agregamos el total al array de totales por mes
