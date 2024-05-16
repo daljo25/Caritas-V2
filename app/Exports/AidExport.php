@@ -3,23 +3,51 @@
 namespace App\Exports;
 
 use App\Models\Aid;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithTitle;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\FromQuery;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AidExport implements FromCollection, WithHeadings, WithMapping, WithTitle, ShouldAutoSize
 {
-    /**
-     * Obtiene todos los registros de Aid con la relación Beneficiary.
-     */
-    public function collection()
+    protected $filters;
+
+    public function __construct(array $filters)
     {
-        return Aid::where('status', 'Aceptada')
-            ->with('beneficiary.Family')
-            ->get();
+        $this->filters = $filters;
+    }
+
+    /**
+     * Obtiene la colección de registros de Aid según los filtros proporcionados.
+     */
+    public function collection(): Collection
+    {
+        $query = Aid::query();
+        //dd($this->filters);
+
+        // Aplicar los filtros si se proporcionan
+        if (!empty($this->filters['status'])) {
+            $query->where('status', $this->filters['status']);
+        }
+
+        if (!empty($this->filters['type'])) {
+            $query->whereIn('type', $this->filters['type']);
+        }
+
+        if (!empty($this->filters['start_date'])) {
+            $query->where('start_date', '>=', $this->filters['start_date']);
+        }
+
+        if (!empty($this->filters['end_date'])) {
+            $query->where('end_date', '<=', $this->filters['end_date']);
+        }
+
+        return $query->with('beneficiary.Family')->get();
     }
 
     /**
@@ -45,8 +73,9 @@ class AidExport implements FromCollection, WithHeadings, WithMapping, WithTitle,
             $ageGroups['total'], // Total de familiares
             $beneficiary->address,
             $beneficiary->phone,
-            $aid->type, // Campo adicional de Aid
-            $aid->approved_amount, // Campo adicional de Aid
+            $aid->status,
+            $aid->type, 
+            $aid->approved_amount, 
             Carbon::parse($aid->start_date)->format('d-m-Y'), // Formato de la fecha
             Carbon::parse($aid->end_date)->format('d-m-Y'), // Formato de la fecha
         ];
@@ -69,6 +98,7 @@ class AidExport implements FromCollection, WithHeadings, WithMapping, WithTitle,
             'Total Familiares',
             'Dirección',
             'Teléfono',
+            'Etapa',
             'Tipo de Ayuda',
             'Monto Aprobado',
             'Fecha de Inicio',
@@ -82,6 +112,12 @@ class AidExport implements FromCollection, WithHeadings, WithMapping, WithTitle,
     public function title(): string
     {
         return 'Ayudas';
+    }
+    /**
+     * Descargar el archivo la hoja de Excel.
+     */
+    public function download() {
+        return Excel::download(new AidExport($this->filters));
     }
 
     /**
