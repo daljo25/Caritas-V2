@@ -69,18 +69,7 @@ class MonthlyReportResource extends Resource
                             ->numeric()
                             ->label('Recaudacion en la Colecta')
                             ->inputMode('decimal')
-                            ->prefixIcon('heroicon-o-currency-euro')
-                            ->reactive()
-                            ->afterStateUpdated(function (Set $set, Get $get) {
-                                $collection = (float) $get('collection');
-                                $membership_receipts = (float) $get('membership_receipts');
-                
-                                // Calcular el 50% de collection + 50% de membership_receipts
-                                $charity_transfer = 0.5 * ($collection + $membership_receipts);
-                
-                                // Actualizar el campo charity_transfer
-                                $set('charity_transfer', $charity_transfer);
-                            }),
+                            ->prefixIcon('heroicon-o-currency-euro'),
                         Forms\Components\TextInput::make('donation_by_bank')
                             ->numeric()
                             ->label('Donativos por Banco')
@@ -90,18 +79,7 @@ class MonthlyReportResource extends Resource
                             ->numeric()
                             ->label('Recibos de Socios Cobrados')
                             ->inputMode('decimal')
-                            ->prefixIcon('heroicon-o-currency-euro')
-                            ->reactive()
-                            ->afterStateUpdated(function (Set $set, Get $get) {
-                                $collection = (float) $get('collection');
-                                $membership_receipts = (float) $get('membership_receipts');
-                
-                                // Calcular el 50% de collection + 50% de membership_receipts
-                                $charity_transfer = 0.5 * ($collection + $membership_receipts);
-                
-                                // Actualizar el campo charity_transfer
-                                $set('charity_transfer', $charity_transfer);
-                            }),
+                            ->prefixIcon('heroicon-o-currency-euro'),
                         Forms\Components\TextInput::make('charity_receipts')
                             ->numeric()
                             ->label('Recibos de Caritas Diosesana')
@@ -116,9 +94,7 @@ class MonthlyReportResource extends Resource
                             ->numeric()
                             ->inputMode('decimal')
                             ->prefixIcon('heroicon-o-currency-euro')
-                            ->hintIcon('tabler-help', tooltip: '50% de la Colecta + 50% de los recibos cobrados por nosotros')
-                            ->reactive()
-                            ->readOnly(true),
+                            ->hintIcon('tabler-help', tooltip: '50% de la Colecta + 50% de los recibos cobrados por nosotros'),
                         Forms\Components\TextInput::make('food')
                             ->numeric()
                             ->label('Gastos para Alimentacion e Higiene Personal')
