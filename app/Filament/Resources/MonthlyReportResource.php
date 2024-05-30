@@ -40,18 +40,18 @@ class MonthlyReportResource extends Resource
                             ->label('Mes')
                             ->required()
                             ->options([
-                                'Enero' => 'Enero',
-                                'Febrero' => 'Febrero',
-                                'Marzo' => 'Marzo',
-                                'Abril' => 'Abril',
-                                'Mayo' => 'Mayo',
-                                'Junio' => 'Junio',
-                                'Julio' => 'Julio',
-                                'Agosto' => 'Agosto',
-                                'Septiembre' => 'Septiembre',
-                                'Octubre' => 'Octubre',
-                                'Noviembre' => 'Noviembre',
-                                'Diciembre' => 'Diciembre',
+                                '01' => 'Enero',
+                                '02' => 'Febrero',
+                                '03' => 'Marzo',
+                                '04' => 'Abril',
+                                '05' => 'Mayo',
+                                '06' => 'Junio',
+                                '07' => 'Julio',
+                                '08' => 'Agosto',
+                                '09' => 'Septiembre',
+                                '10' => 'Octubre',
+                                '11' => 'Noviembre',
+                                '12' => 'Diciembre',
                             ]),
                         Forms\Components\Select::make('year')
                             ->label('Año')
@@ -67,34 +67,82 @@ class MonthlyReportResource extends Resource
                     ->schema([
                         Forms\Components\TextInput::make('collection')
                             ->numeric()
-                            ->label('Recaudacion en la Colecta')
+                            ->label('Colectas')
                             ->inputMode('decimal')
                             ->prefixIcon('heroicon-o-currency-euro'),
-                        Forms\Components\TextInput::make('donation_by_bank')
-                            ->numeric()
-                            ->label('Donativos por Banco')
-                            ->inputMode('decimal')
-                            ->prefixIcon('heroicon-o-currency-euro'),
-                        Forms\Components\TextInput::make('membership_receipts')
+                        Forms\Components\TextInput::make('parroquial_receipts')
                             ->numeric()
                             ->label('Recibos de Socios Cobrados')
                             ->inputMode('decimal')
                             ->prefixIcon('heroicon-o-currency-euro'),
-                        Forms\Components\TextInput::make('charity_receipts')
+                        Forms\Components\TextInput::make('bank_donation')
+                            ->numeric()
+                            ->label('Donativos por Banco')
+                            ->inputMode('decimal')
+                            ->prefixIcon('heroicon-o-currency-euro'),
+                        Forms\Components\TextInput::make('volunteer_campaign_donation')
+                            ->numeric()
+                            ->label('Campañas (Socios/Voluntarios)')
+                            ->inputMode('decimal')
+                            ->prefixIcon('heroicon-o-currency-euro'),
+                        Forms\Components\TextInput::make('diosesano_receipt')
                             ->numeric()
                             ->label('Recibos de Caritas Diosesana')
                             ->inputMode('decimal')
-                            ->prefixIcon('heroicon-o-currency-euro')
-                            ->hintIcon('tabler-help', tooltip: '50% de los recibos cobrados por CD'),   
+                            ->prefixIcon('heroicon-o-currency-euro'),
+                        Forms\Components\TextInput::make('diosesano_donation')
+                            ->numeric()
+                            ->label('Dinero recibido por Caritas Diosesana')
+                            ->inputMode('decimal')
+                            ->prefixIcon('heroicon-o-currency-euro'),
+                        Forms\Components\TextInput::make('other_donation')
+                            ->numeric()
+                            ->label('Recibido de Otras Entidades')
+                            ->inputMode('decimal')
+                            ->prefixIcon('heroicon-o-currency-euro'),
+                        Forms\Components\TextInput::make('special_donation')
+                            ->numeric()
+                            ->label('Donaciones en Especie')
+                            ->inputMode('decimal')
+                            ->prefixIcon('heroicon-o-currency-euro'),
                     ]),
                 Fieldset::make('Gastos')
                     ->schema([
-                        Forms\Components\TextInput::make('charity_transfer')
-                            ->label('Transferencia Hecha al Fondo Comun Diosesano')
+                        Forms\Components\TextInput::make('transfer_collection')
+                            ->label('Transferencia al Fondo Comun Diosesano por Colectas')
                             ->numeric()
                             ->inputMode('decimal')
-                            ->prefixIcon('heroicon-o-currency-euro')
-                            ->hintIcon('tabler-help', tooltip: '50% de la Colecta + 50% de los recibos cobrados por nosotros'),
+                            ->prefixIcon('heroicon-o-currency-euro'),
+                        Forms\Components\TextInput::make('transfer_membership')
+                            ->label('Transferencia al Fondo Comun Diosesano por Recibos de Socios')
+                            ->numeric()
+                            ->inputMode('decimal')
+                            ->prefixIcon('heroicon-o-currency-euro'),
+                        Forms\Components\TextInput::make('transfer_campaign')
+                            ->label('Transferencia al Fondo Comun Diosesano por Campañas')
+                            ->numeric()
+                            ->inputMode('decimal')
+                            ->prefixIcon('heroicon-o-currency-euro'),
+                        Forms\Components\TextInput::make('transfer_other')
+                            ->label('Transferencia al Fondo Comun Diosesano por Otros Conceptos')
+                            ->numeric()
+                            ->inputMode('decimal')
+                            ->prefixIcon('heroicon-o-currency-euro'),
+                        Forms\Components\TextInput::make('transfer_arciprestal')
+                            ->label('Transferencia al Arciprestal')
+                            ->numeric()
+                            ->inputMode('decimal')
+                            ->prefixIcon('heroicon-o-currency-euro'),
+                        Forms\Components\TextInput::make('health')
+                            ->numeric()
+                            ->label('Gastos en Salud')
+                            ->inputMode('decimal')
+                            ->prefixIcon('heroicon-o-currency-euro'),
+                        Forms\Components\TextInput::make('housing')
+                            ->numeric()
+                            ->label('Gastos en Vivienda')
+                            ->inputMode('decimal')
+                            ->prefixIcon('heroicon-o-currency-euro'),
                         Forms\Components\TextInput::make('food')
                             ->numeric()
                             ->label('Gastos para Alimentacion e Higiene Personal')
@@ -104,36 +152,48 @@ class MonthlyReportResource extends Resource
                             ->numeric()
                             ->label('Gastos de Recibos de Suministros')
                             ->inputMode('decimal')
-                            ->prefixIcon('heroicon-o-currency-euro')
-                            ->hintIcon('tabler-help', tooltip: 'Recibos de Comunidad, Electricidad, Agua, Gas, Telefonia'),
-                        Forms\Components\TextInput::make('bank')
-                            ->numeric()
-                            ->label('Gastos Bancarios')
-                            ->inputMode('decimal')
                             ->prefixIcon('heroicon-o-currency-euro'),
-                        Forms\Components\TextInput::make('housing')
-                            ->numeric()
-                            ->label('Gastos en Vivienda')
-                            ->inputMode('decimal')
-                            ->prefixIcon('heroicon-o-currency-euro')
-                            ->hintIcon('tabler-help', tooltip: 'Alquileres, Hipotecas, Equipamiento de Vivienda'),
                         Forms\Components\TextInput::make('other_interventions')
                             ->numeric()
                             ->label('Otras Intervenciones')
                             ->inputMode('decimal')
-                            ->prefixIcon('heroicon-o-currency-euro')
-                            ->hintIcon('tabler-help', tooltip: 'Material Escolar, Proyectos de Trabajo, Cursos, Bonobus, etc.'),
-                        Forms\Components\TextInput::make('health')
+                            ->prefixIcon('heroicon-o-currency-euro'),
+                        Forms\Components\TextInput::make('parish_project')
                             ->numeric()
-                            ->label('Gastos en Salud')
-                            ->inputMode('decimal')
-                            ->prefixIcon('heroicon-o-currency-euro')
-                            ->hintIcon('tabler-help', tooltip: 'Medicamentos, Ortopedia, Optica, ortodoncia, etc.'),
-                        Forms\Components\TextInput::make('guests')
-                            ->numeric()
-                            ->label('Transeuntes')
+                            ->label('Proyectos Especificos Parroquiales')
                             ->inputMode('decimal')
                             ->prefixIcon('heroicon-o-currency-euro'),
+                        Forms\Components\TextInput::make('general_expense')
+                            ->numeric()
+                            ->label('Gastos Generales (Incluye Mantenimiento)')
+                            ->inputMode('decimal')
+                            ->prefixIcon('heroicon-o-currency-euro'),
+                        Forms\Components\TextInput::make('other_entity')
+                            ->numeric()
+                            ->label('Transferencias a Otras Entidades')
+                            ->inputMode('decimal')
+                            ->prefixIcon('heroicon-o-currency-euro'),
+                        Forms\Components\TextInput::make('campaign_volunteers')
+                            ->numeric()
+                            ->label('Campañas (Socios/Voluntarios)')
+                            ->inputMode('decimal')
+                            ->prefixIcon('heroicon-o-currency-euro'),
+                        Forms\Components\TextInput::make('campaign_local_emergency')
+                            ->numeric()
+                            ->label('Campañas (Emergencias Locales)')
+                            ->inputMode('decimal')
+                            ->prefixIcon('heroicon-o-currency-euro'),
+                        Forms\Components\TextInput::make('campaign_international_emergency')
+                            ->numeric()
+                            ->label('Campañas (Emergencias Internacionales)')
+                            ->inputMode('decimal')
+                            ->prefixIcon('heroicon-o-currency-euro'),
+                        Forms\Components\TextInput::make('development_cooperation')
+                            ->numeric()
+                            ->label('Cooperación al Desarrollo')
+                            ->inputMode('decimal')
+                            ->prefixIcon('heroicon-o-currency-euro'),
+
                     ]),
                 Fieldset::make('Mensaje')
                     ->schema([
@@ -155,7 +215,7 @@ class MonthlyReportResource extends Resource
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('message')
-                ->label('Incidente')
+                    ->label('Incidente')
                     ->words(20)
                     ->wrap()
                     ->html(),
@@ -173,7 +233,7 @@ class MonthlyReportResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\Action::make('pdf') 
+                Tables\Actions\Action::make('pdf')
                     ->label('PDF')
                     ->color('success')
                     ->icon('tabler-download')
@@ -182,7 +242,7 @@ class MonthlyReportResource extends Resource
                             echo FacadePdf::loadHtml(
                                 Blade::render('pdf.monthly-report', ['record' => $record])
                             )->stream();
-                        },'Comunicado Mensual '.$record->month.' '.$record->year .'.pdf');
+                        }, 'Comunicado Mensual ' . $record->month . ' ' . $record->year . '.pdf');
                     })
             ])
             ->bulkActions([
