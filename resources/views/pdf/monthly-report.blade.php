@@ -1,7 +1,8 @@
 @php
-$entradas = $record->collection + $record->donation_by_bank + $record->membership_receipts + $record->charity_receipts;
-$gastos = $record->charity_transfer + $record->food + $record->supplies_receipt + $record->bank + $record->housing + $record->other_interventions + $record->health + $record->guests;
+$entradas = $record->collection + $record->bank_donation +$record->parroquial_receipt + $record->volunteer_campaign_donation + $record->diosesano_receipt + $record->other_donation + $record->special_donation;
+$gastos = $record->transfer_collection + $record->transfer_membership + $record->transfer_campaign + $record->transfer_other + $record->transfer_arciprestal + $record->health + $record->housing + $record->food + $record->supplies_receipt + $record->other_intervention + $record->parish_project + $record->general_expense + $record->other_entity + $record->campaign_volunteers + $record->campaign_local_emergency + $record->campaign_international_emergency + $record->development_cooperation;
 $balance = $entradas - $gastos;
+$trasferencia_diosesano = $record->transfer_collection + $record->transfer_membership;
 @endphp
 
 <!DOCTYPE html>
@@ -73,9 +74,9 @@ $balance = $entradas - $gastos;
 </head>
 
 <body>
-<h2 class="text-center">COMUNICADO MENSUAL DE CARITAS PARROQUIAL</h2><br><br>
+<h2 class="text-center">COMUNICADO MENSUAL DE CARITAS PARROQUIAL</h2>
 
-<p class="text-justify">{!!$record->message!!}</p><br><br>
+<p class="text-justify">{!!$record->message!!}</p><br>
 
 <table>
     <thead>
@@ -94,20 +95,38 @@ $balance = $entradas - $gastos;
             <td></td>
         </tr>
         <tr>
-            <td>Donativos por Banco</td>
-            <td class="text-center">{{$record->donation_by_bank}}</td>
+            <td>Recibos de Socios Cobrados</td>
+            <td class="text-center">{{$record->parroquial_receipt}}</td>
             <td></td>
             <td></td>
         </tr>
         <tr>
-            <td>Recibos de Socios Cobrados</td>
-            <td class="text-center">{{$record->membership_receipts}}</td>
+            <td>Donativos por Banco</td>
+            <td class="text-center">{{$record->bank_donation}}</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Campaña de Socios / Voluntarios</td>
+            <td class="text-center">{{$record->volunteer_campaign_donation}}</td>
             <td></td>
             <td></td>
         </tr>
         <tr>
             <td>Recibido de C. Diosesana, el 50% de los recibos cobrados por ella.</td>
-            <td class="text-center">{{$record->charity_receipts}}</td>
+            <td class="text-center">{{$record->diosesano_receipt}}</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Recibido de Otras Entidades</td>
+            <td class="text-center">{{$record->other_donation}}</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Donaciones en Especie</td>
+            <td class="text-center">{{$record->special_donation}}</td>
             <td></td>
             <td></td>
         </tr>
@@ -120,7 +139,37 @@ $balance = $entradas - $gastos;
         <tr>
             <td>Transferencia hecha al Fondo Comun Diosesano, el 50% de Colecta y recibos de socios, cobrados por nosotros.</td>
             <td></td>
-            <td class="text-center">{{$record->charity_transfer}}</td>
+            <td class="text-center">{{number_format($trasferencia_diosesano, 2, '.', '')}}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Transferencia a C. Diosesana por Campañas</td>
+            <td></td>
+            <td class="text-center">{{$record->transfer_campaign}}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Transferencia a C. Diosesana por Otros Conceptos</td>
+            <td></td>
+            <td class="text-center">{{$record->transfer_other}}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Transferencia a Arciprestal</td>
+            <td></td>
+            <td class="text-center">{{$record->transfer_arciprestal}}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Gastos de Salud (medicamentos, ortopedia, optica, ortodoncia, etc)</td>
+            <td></td>
+            <td class="text-center">{{$record->health}}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Gastos en Vivienda (alquileres, hipotecas, equipamiento de vivienda)</td>
+            <td></td>
+            <td class="text-center">{{$record->housing}}</td>
             <td></td>
         </tr>
         <tr>
@@ -136,33 +185,51 @@ $balance = $entradas - $gastos;
             <td></td>
         </tr>
         <tr>
-            <td>Gastos de Banco</td>
-            <td></td>
-            <td class="text-center">{{$record->bank}}</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Gastos en Vivienda (alquileres, hipotecas, equipamiento de vivienda)</td>
-            <td></td>
-            <td class="text-center">{{$record->housing}}</td>
-            <td></td>
-        </tr>
-        <tr>
             <td>Otras Intervenciones (material escolar, proyectos de trabajo, bonobus, etc)</td>
             <td></td>
-            <td class="text-center">{{$record->other_interventions}}</td>
+            <td class="text-center">{{$record->other_intervention}}</td>
             <td></td>
         </tr>
         <tr>
-            <td>Gastos de Salud (medicamentos, ortopedia, optica, ortodoncia, etc)</td>
+            <td>Proyectos especificos parroquiales</td>
             <td></td>
-            <td class="text-center">{{$record->health}}</td>
+            <td class="text-center">{{$record->parish_project}}</td>
             <td></td>
         </tr>
         <tr>
-            <td>Transeuntes</td>
+            <td>Gastos Generales (incluye mantemimiento)</td>
             <td></td>
-            <td class="text-center">{{$record->guests}}</td>
+            <td class="text-center">{{$record->general_expense}}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>A otras Entidades</td>
+            <td></td>
+            <td class="text-center">{{$record->other_entity}}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Campañas de Socios / Voluntarios</td>
+            <td></td>
+            <td class="text-center">{{$record->campaign_volunteers}}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Campañas (Emergencia Local)</td>
+            <td></td>
+            <td class="text-center">{{$record->campaign_local_emergency}}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Campañas (Emergencia Intervencional)</td>
+            <td></td>
+            <td class="text-center">{{$record->campaign_international_emergency}}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Cooperación al desarrollo</td>
+            <td></td>
+            <td class="text-center">{{$record->development_cooperation}}</td>
             <td></td>
         </tr>
         <tr>

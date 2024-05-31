@@ -70,7 +70,7 @@ class MonthlyReportResource extends Resource
                             ->label('Colectas')
                             ->inputMode('decimal')
                             ->prefixIcon('heroicon-o-currency-euro'),
-                        Forms\Components\TextInput::make('parroquial_receipts')
+                        Forms\Components\TextInput::make('parroquial_receipt')
                             ->numeric()
                             ->label('Recibos de Socios Cobrados')
                             ->inputMode('decimal')
@@ -153,7 +153,7 @@ class MonthlyReportResource extends Resource
                             ->label('Gastos de Recibos de Suministros')
                             ->inputMode('decimal')
                             ->prefixIcon('heroicon-o-currency-euro'),
-                        Forms\Components\TextInput::make('other_interventions')
+                        Forms\Components\TextInput::make('other_intervention')
                             ->numeric()
                             ->label('Otras Intervenciones')
                             ->inputMode('decimal')
