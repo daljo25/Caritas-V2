@@ -87,12 +87,12 @@ class MonthlyReportResource extends Resource
                             ->prefixIcon('heroicon-o-currency-euro'),
                         Forms\Components\TextInput::make('diosesano_receipt')
                             ->numeric()
-                            ->label('Recibos de Caritas Diosesana')
+                            ->label('Recibos Cobrados por Caritas Diosesana')
                             ->inputMode('decimal')
                             ->prefixIcon('heroicon-o-currency-euro'),
                         Forms\Components\TextInput::make('diosesano_donation')
                             ->numeric()
-                            ->label('Dinero recibido por Caritas Diosesana')
+                            ->label('Dinero recibido de Caritas Diosesana')
                             ->inputMode('decimal')
                             ->prefixIcon('heroicon-o-currency-euro'),
                         Forms\Components\TextInput::make('other_donation')
@@ -135,12 +135,12 @@ class MonthlyReportResource extends Resource
                             ->prefixIcon('heroicon-o-currency-euro'),
                         Forms\Components\TextInput::make('health')
                             ->numeric()
-                            ->label('Gastos en Salud')
+                            ->label('Gastos de Salud (medicamentos, ortopedia, optica, ortodoncia, etc)')
                             ->inputMode('decimal')
                             ->prefixIcon('heroicon-o-currency-euro'),
                         Forms\Components\TextInput::make('housing')
                             ->numeric()
-                            ->label('Gastos en Vivienda')
+                            ->label('Gastos en Vivienda (alquileres, hipotecas, equipamiento de vivienda)')
                             ->inputMode('decimal')
                             ->prefixIcon('heroicon-o-currency-euro'),
                         Forms\Components\TextInput::make('food')
@@ -150,12 +150,12 @@ class MonthlyReportResource extends Resource
                             ->prefixIcon('heroicon-o-currency-euro'),
                         Forms\Components\TextInput::make('supplies_receipt')
                             ->numeric()
-                            ->label('Gastos de Recibos de Suministros')
+                            ->label('Gastos de Recibos de Suministros Basicos (comunidad, electricidad, agua, gas)')
                             ->inputMode('decimal')
                             ->prefixIcon('heroicon-o-currency-euro'),
                         Forms\Components\TextInput::make('other_intervention')
                             ->numeric()
-                            ->label('Otras Intervenciones')
+                            ->label('Otras Intervenciones (material escolar, proyectos de trabajo, bonobus, etc)')
                             ->inputMode('decimal')
                             ->prefixIcon('heroicon-o-currency-euro'),
                         Forms\Components\TextInput::make('parish_project')
@@ -165,7 +165,7 @@ class MonthlyReportResource extends Resource
                             ->prefixIcon('heroicon-o-currency-euro'),
                         Forms\Components\TextInput::make('general_expense')
                             ->numeric()
-                            ->label('Gastos Generales (Incluye Mantenimiento)')
+                            ->label('Gastos Generales Internos (mantenimiento, banco, etc)')
                             ->inputMode('decimal')
                             ->prefixIcon('heroicon-o-currency-euro'),
                         Forms\Components\TextInput::make('other_entity')
@@ -242,7 +242,7 @@ class MonthlyReportResource extends Resource
                             echo FacadePdf::loadHtml(
                                 Blade::render('pdf.monthly-report', ['record' => $record])
                             )->stream();
-                        }, 'Comunicado Mensual ' . $record->month . ' ' . $record->year . '.pdf');
+                        }, 'Comunicado Mensual mes' . $record->month . ' año ' . $record->year . '.pdf');
                     })
             ])
             ->bulkActions([
