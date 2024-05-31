@@ -242,7 +242,7 @@ class MonthlyReportResource extends Resource
                             echo FacadePdf::loadHtml(
                                 Blade::render('pdf.monthly-report', ['record' => $record])
                             )->stream();
-                        }, 'Comunicado Mensual mes' . $record->month . ' año ' . $record->year . '.pdf');
+                        }, 'Comunicado Mensual mes ' . $record->month . ' año ' . $record->year . '.pdf');
                     })
             ])
             ->bulkActions([
