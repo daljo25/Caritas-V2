@@ -74,6 +74,7 @@ class AidExport implements FromCollection, WithHeadings, WithMapping, WithTitle,
             $beneficiary->address,
             $beneficiary->phone,
             $aid->status,
+            $aid->paid_by,
             $aid->type, 
             $aid->approved_amount, 
             Carbon::parse($aid->start_date)->format('d-m-Y'), // Formato de la fecha

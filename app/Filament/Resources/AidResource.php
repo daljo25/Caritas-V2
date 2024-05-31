@@ -110,6 +110,12 @@ class AidResource extends Resource
                             ->preload()
                             ->required()
                             ->label('Colaborador'),
+                        Forms\Components\Select::make('paid_by')
+                            ->label('Pagado por Caritas')
+                            ->options([
+                                'Parroquial' => 'Parroquial',
+                                'Diocesana' => 'Diocesana',
+                            ]),
                     ]),
                 Fieldset::make('Fecha y Cantidad')
                     ->schema([
@@ -139,7 +145,7 @@ class AidResource extends Resource
 
             ]);
     }
-    
+
     public static function table(Table $table): Table
     {
         return $table
@@ -155,14 +161,19 @@ class AidResource extends Resource
                     ->numeric()
                     ->sortable()
                     ->label('Usuario'),
-                Tables\Columns\TextColumn::make('volunteer.name')
-                    ->numeric()
-                    ->sortable()
-                    ->label('Voluntario'),
                 Tables\Columns\TextColumn::make('collaborator.name')
                     ->numeric()
                     ->sortable()
                     ->label('Colaborador'),
+                Tables\Columns\TextColumn::make('paid_by')
+                    ->numeric()
+                    ->sortable()
+                    ->label('Pagado Por Caritas'),
+                Tables\Columns\TextColumn::make('volunteer.name')
+                    ->numeric()
+                    ->sortable()
+                    ->label('Voluntario')
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('start_date')
                     ->date()
                     ->sortable()
@@ -210,16 +221,17 @@ class AidResource extends Resource
                     ->label('Etapa')
                     ->multiple(),
                 Tables\Filters\SelectFilter::make('collaborator')
-                    ->relationship('collaborator', 'name' , fn (Builder $query) => $query->whereIn('id', Aid::pluck('collaborator_id')->unique()))
+                    ->relationship('collaborator', 'name', fn (Builder $query) => $query->whereIn('id', Aid::pluck('collaborator_id')->unique()))
                     ->searchable()
                     ->preload()
                     ->label('Colaborador'),
-                    Tables\Filters\SelectFilter::make('type')
-                    ->options(fn () => Aid::select('type')
-                        ->distinct()
-                        ->pluck('type', 'type')
-                        ->toArray()
-                        )
+                Tables\Filters\SelectFilter::make('type')
+                    ->options(
+                        fn () => Aid::select('type')
+                            ->distinct()
+                            ->pluck('type', 'type')
+                            ->toArray()
+                    )
                     ->searchable()
                     ->preload()
                     ->label('Tipo de Ayuda'),
@@ -228,7 +240,7 @@ class AidResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\Action::make('pdf') 
+                Tables\Actions\Action::make('pdf')
                     ->label('PDF')
                     ->color('success')
                     ->icon('tabler-download')
@@ -237,10 +249,10 @@ class AidResource extends Resource
                             echo FacadePdf::loadHtml(
                                 Blade::render('pdf.receipt', ['record' => $record])
                             )->stream();
-                        },'Ayuda de ' . $record->type .' a '. $record->Beneficiary->name . '.pdf');
-                    })  , 
+                        }, 'Ayuda de ' . $record->type . ' a ' . $record->Beneficiary->name . '.pdf');
+                    }),
             ])
-                        
+
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
