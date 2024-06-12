@@ -32,6 +32,7 @@ class DashboardPanelProvider extends PanelProvider
             ->emailVerification()
             ->profile(isSimple: false)
             ->spa()
+            ->globalSearch(false)
             ->maxContentWidth(MaxWidth::Full)
             ->sidebarCollapsibleOnDesktop()
             ->brandLogo(asset('images/logo.svg'))

@@ -1,5 +1,5 @@
 @php
-$entradas = $record->collection + $record->bank_donation +$record->parroquial_receipt + $record->volunteer_campaign_donation + $record->diosesano_receipt + $record->other_donation + $record->special_donation;
+$entradas = $record->collection + $record->bank_donation + $record->parroquial_receipt + $record->volunteer_campaign_donation + $record->diosesano_receipt + $record->other_donation + $record->special_donation;
 $gastos = $record->transfer_collection + $record->transfer_membership + $record->transfer_campaign + $record->transfer_other + $record->transfer_arciprestal + $record->health + $record->housing + $record->food + $record->supplies_receipt + $record->other_intervention + $record->parish_project + $record->general_expense + $record->other_entity + $record->campaign_volunteers + $record->campaign_local_emergency + $record->campaign_international_emergency + $record->development_cooperation;
 $balance = $entradas - $gastos;
 $trasferencia_diosesano = $record->transfer_collection + $record->transfer_membership;
@@ -46,7 +46,6 @@ $trasferencia_diosesano = $record->transfer_collection + $record->transfer_membe
             border: 1px solid #333;
             margin: 0;
             border-collapse: collapse;
-
         }
         .text-danger {
             color: red;
@@ -76,7 +75,7 @@ $trasferencia_diosesano = $record->transfer_collection + $record->transfer_membe
 <body>
 <h2 class="text-center">COMUNICADO MENSUAL DE CARITAS PARROQUIAL</h2>
 
-<p class="text-justify">{!!$record->message!!}</p><br>
+<p class="text-justify">{!! $record->message !!}</p><br>
 
 <table>
     <thead>
@@ -90,43 +89,43 @@ $trasferencia_diosesano = $record->transfer_collection + $record->transfer_membe
     <tbody>
         <tr>
             <td>Recaudacion en la Colecta</td>
-            <td class="text-center">{{$record->collection}}</td>
+            <td class="text-center">{{ number_format($record->collection, 2, ',', '.') }}</td>
             <td></td>
             <td></td>
         </tr>
         <tr>
             <td>Recibos de Socios Cobrados</td>
-            <td class="text-center">{{$record->parroquial_receipt}}</td>
+            <td class="text-center">{{ number_format($record->parroquial_receipt, 2, ',', '.') }}</td>
             <td></td>
             <td></td>
         </tr>
         <tr>
             <td>Donativos por Banco</td>
-            <td class="text-center">{{$record->bank_donation}}</td>
+            <td class="text-center">{{ number_format($record->bank_donation, 2, ',', '.') }}</td>
             <td></td>
             <td></td>
         </tr>
         <tr>
             <td>Campaña de Socios / Voluntarios</td>
-            <td class="text-center">{{$record->volunteer_campaign_donation}}</td>
+            <td class="text-center">{{ number_format($record->volunteer_campaign_donation, 2, ',', '.') }}</td>
             <td></td>
             <td></td>
         </tr>
         <tr>
             <td>Recibido de C. Diosesana, el 50% de los recibos cobrados por ella.</td>
-            <td class="text-center">{{$record->diosesano_receipt}}</td>
+            <td class="text-center">{{ number_format($record->diosesano_receipt, 2, ',', '.') }}</td>
             <td></td>
             <td></td>
         </tr>
         <tr>
             <td>Recibido de Otras Entidades</td>
-            <td class="text-center">{{$record->other_donation}}</td>
+            <td class="text-center">{{ number_format($record->other_donation, 2, ',', '.') }}</td>
             <td></td>
             <td></td>
         </tr>
         <tr>
             <td>Donaciones en Especie</td>
-            <td class="text-center">{{$record->special_donation}}</td>
+            <td class="text-center">{{ number_format($record->special_donation, 2, ',', '.') }}</td>
             <td></td>
             <td></td>
         </tr>
@@ -139,97 +138,97 @@ $trasferencia_diosesano = $record->transfer_collection + $record->transfer_membe
         <tr>
             <td>Transferencia hecha al Fondo Comun Diosesano, el 50% de Colecta y recibos de socios, cobrados por nosotros.</td>
             <td></td>
-            <td class="text-center">{{number_format($trasferencia_diosesano, 2, '.', '')}}</td>
+            <td class="text-center">{{ number_format($trasferencia_diosesano, 2, ',', '.') }}</td>
             <td></td>
         </tr>
         <tr>
             <td>Transferencia a C. Diosesana por Campañas</td>
             <td></td>
-            <td class="text-center">{{$record->transfer_campaign}}</td>
+            <td class="text-center">{{ number_format($record->transfer_campaign, 2, ',', '.') }}</td>
             <td></td>
         </tr>
         <tr>
             <td>Transferencia a C. Diosesana por Otros Conceptos</td>
             <td></td>
-            <td class="text-center">{{$record->transfer_other}}</td>
+            <td class="text-center">{{ number_format($record->transfer_other, 2, ',', '.') }}</td>
             <td></td>
         </tr>
         <tr>
             <td>Transferencia a Arciprestal</td>
             <td></td>
-            <td class="text-center">{{$record->transfer_arciprestal}}</td>
+            <td class="text-center">{{ number_format($record->transfer_arciprestal, 2, ',', '.') }}</td>
             <td></td>
         </tr>
         <tr>
             <td>Gastos de Salud (medicamentos, ortopedia, optica, ortodoncia, etc)</td>
             <td></td>
-            <td class="text-center">{{$record->health}}</td>
+            <td class="text-center">{{ number_format($record->health, 2, ',', '.') }}</td>
             <td></td>
         </tr>
         <tr>
             <td>Gastos en Vivienda (alquileres, hipotecas, equipamiento de vivienda)</td>
             <td></td>
-            <td class="text-center">{{$record->housing}}</td>
+            <td class="text-center">{{ number_format($record->housing, 2, ',', '.') }}</td>
             <td></td>
         </tr>
         <tr>
             <td>Gastos para Alimentacion e Higiene Personal</td>
             <td></td>
-            <td class="text-center">{{$record->food}}</td>
+            <td class="text-center">{{ number_format($record->food, 2, ',', '.') }}</td>
             <td></td>
         </tr>
         <tr>
             <td>Gastos de Recibos de Suministros Basicos (comunidad, electricidad, agua, gas)</td>
             <td></td>
-            <td class="text-center">{{$record->supplies_receipt}}</td>
+            <td class="text-center">{{ number_format($record->supplies_receipt, 2, ',', '.') }}</td>
             <td></td>
         </tr>
         <tr>
             <td>Otras Intervenciones (material escolar, proyectos de trabajo, bonobus, etc)</td>
             <td></td>
-            <td class="text-center">{{$record->other_intervention}}</td>
+            <td class="text-center">{{ number_format($record->other_intervention, 2, ',', '.') }}</td>
             <td></td>
         </tr>
         <tr>
             <td>Proyectos especificos parroquiales</td>
             <td></td>
-            <td class="text-center">{{$record->parish_project}}</td>
+            <td class="text-center">{{ number_format($record->parish_project, 2, ',', '.') }}</td>
             <td></td>
         </tr>
         <tr>
             <td>Gastos Generales (incluye mantemimiento)</td>
             <td></td>
-            <td class="text-center">{{$record->general_expense}}</td>
+            <td class="text-center">{{ number_format($record->general_expense, 2, ',', '.') }}</td>
             <td></td>
         </tr>
         <tr>
             <td>A otras Entidades</td>
             <td></td>
-            <td class="text-center">{{$record->other_entity}}</td>
+            <td class="text-center">{{ number_format($record->other_entity, 2, ',', '.') }}</td>
             <td></td>
         </tr>
         <tr>
             <td>Campañas de Socios / Voluntarios</td>
             <td></td>
-            <td class="text-center">{{$record->campaign_volunteers}}</td>
+            <td class="text-center">{{ number_format($record->campaign_volunteers, 2, ',', '.') }}</td>
             <td></td>
         </tr>
         <tr>
             <td>Campañas (Emergencia Local)</td>
             <td></td>
-            <td class="text-center">{{$record->campaign_local_emergency}}</td>
+            <td class="text-center">{{ number_format($record->campaign_local_emergency, 2, ',', '.') }}</td>
             <td></td>
         </tr>
         <tr>
             <td>Campañas (Emergencia Intervencional)</td>
             <td></td>
-            <td class="text-center">{{$record->campaign_international_emergency}}</td>
+            <td class="text-center">{{ number_format($record->campaign_international_emergency, 2, ',', '.') }}</td>
             <td></td>
         </tr>
         <tr>
             <td>Cooperación al desarrollo</td>
             <td></td>
-            <td class="text-center">{{$record->development_cooperation}}</td>
+            <td class="text-center">{{ number_format($record->development_cooperation, 2, ',', '.') }}</td>
             <td></td>
         </tr>
         <tr>
@@ -242,9 +241,9 @@ $trasferencia_diosesano = $record->transfer_collection + $record->transfer_membe
     <thead>
         <tr>
             <td>TOTAL</td>
-            <td class="text-center">{{number_format($entradas, 2, '.', '')}}</td>
-            <td class="text-center">{{number_format($gastos, 2, '.', '')}}</td>
-            <td class="text-center"><span class="text-bold {{ $balance < 0 ? 'text-danger' : '' }}">{{number_format($balance, 2, '.', '')}}</span></td>
+            <td class="text-center">{{ number_format($entradas, 2, ',', '.') }}</td>
+            <td class="text-center">{{ number_format($gastos, 2, ',', '.') }}</td>
+            <td class="text-center"><span class="bold {{ $balance < 0 ? 'text-danger' : '' }}">{{ number_format($balance, 2, ',', '.') }}</span></td>
         </tr>
     </thead>
 </table>

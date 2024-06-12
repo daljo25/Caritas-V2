@@ -39,11 +39,21 @@ class AidExport implements FromCollection, WithHeadings, WithMapping, WithTitle,
             $query->whereIn('type', $this->filters['type']);
         }
 
-        if (!empty($this->filters['start_date'])) {
+        if (!empty($this->filters['start_date']) && !empty($this->filters['end_date'])) {
+            $startDate = $this->filters['start_date'];
+            $endDate = $this->filters['end_date'];
+    
+            $query->where(function($q) use ($startDate, $endDate) {
+                $q->whereBetween('start_date', [$startDate, $endDate])
+                  ->orWhereBetween('end_date', [$startDate, $endDate])
+                  ->orWhere(function($q) use ($startDate, $endDate) {
+                      $q->where('start_date', '<=', $startDate)
+                        ->where('end_date', '>=', $endDate);
+                  });
+            });
+        } elseif (!empty($this->filters['start_date'])) {
             $query->where('start_date', '>=', $this->filters['start_date']);
-        }
-
-        if (!empty($this->filters['end_date'])) {
+        } elseif (!empty($this->filters['end_date'])) {
             $query->where('end_date', '<=', $this->filters['end_date']);
         }
 
@@ -100,6 +110,7 @@ class AidExport implements FromCollection, WithHeadings, WithMapping, WithTitle,
             'Dirección',
             'Teléfono',
             'Etapa',
+            'Pagado por',
             'Tipo de Ayuda',
             'Monto Aprobado',
             'Fecha de Inicio',
