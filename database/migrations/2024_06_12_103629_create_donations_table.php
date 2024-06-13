@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('donor_id')->references('id')->on('donors')->onUpdate('cascade');
             $table->decimal('amount', 8, 2);
-            $table->date('donation_date');
-            $table->string('canal')->nullable();
+            $table->string('donation_month');
+            $table->string('donation_year');
+            $table->string('source')->nullable();
             $table->timestamps();
         });
     }

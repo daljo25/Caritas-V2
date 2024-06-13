@@ -19,10 +19,10 @@ class DonorResource extends Resource
     protected static ?string $model = Donor::class;
 
     protected static ?string $navigationGroup = 'Registro de datos';
-    protected static ?string $label = 'Donador';
-    protected static ?string $pluralLabel = 'Donadores';
+    protected static ?string $label = 'Donante';
+    protected static ?string $pluralLabel = 'Donantes';
     protected static ?string $navigationIcon = 'tabler-cash';
-    protected static ?string $recordTitleAttribute = 'Donadores';
+    protected static ?string $recordTitleAttribute = 'Donantes';
     protected static ?int $navigationSort = 6;
 
     public static function form(Form $form): Form
@@ -56,7 +56,8 @@ class DonorResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nombre')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('email')
                     ->label('Email')
                     ->searchable(),

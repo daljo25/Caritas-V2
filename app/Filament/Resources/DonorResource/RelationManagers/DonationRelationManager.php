@@ -22,20 +22,45 @@ class DonationRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('canal')
+                Forms\Components\Select::make('source')
                     ->required()
                     ->label('Medio')
                     ->options([
                         'Efectivo' => 'Efectivo',
                         'Transferencia Bancaria' => 'Transferencia Bancaria',
                     ]),
-                Forms\Components\DatePicker::make('donation_date')
+                Forms\Components\Select::make('donation_month')
                     ->required()
-                    ->label('Fecha')
-                    ->default(now()),
+                    ->label('Mes')
+                    ->options([
+                        '01' => 'Enero',
+                        '02' => 'Febrero',
+                        '03' => 'Marzo',
+                        '04' => 'Abril',
+                        '05' => 'Mayo',
+                        '06' => 'Junio',
+                        '07' => 'Julio',
+                        '08' => 'Agosto',
+                        '09' => 'Septiembre',
+                        '10' => 'Octubre',
+                        '11' => 'Noviembre',
+                        '12' => 'Diciembre'
+                    ]),
+                    Forms\Components\Select::make('donation_year')
+                    ->required()
+                    ->label('Año')
+                    ->options([
+                        '2024' => '2024',
+                        '2025' => '2025',
+                        '2026' => '2026',
+                        '2027' => '2027',
+                        '2028' => '2028',
+                        '2029' => '2029',
+                        '2030' => '2030',
+                    ]),
                 Forms\Components\TextInput::make('amount')
                     ->required()
-                    ->label('Monto')
+                    ->label('Cantidad')
                     ->inputMode('decimal')
                     ->prefixIcon('heroicon-o-currency-euro')
                     ->maxLength(255),
@@ -47,13 +72,19 @@ class DonationRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('id')
             ->columns([
-                Tables\Columns\TextColumn::make('canal')
-                    ->label('Medio'),
-                Tables\Columns\TextColumn::make('donation_date')
-                    ->label('Fecha')
-                    ->date(),
+                Tables\Columns\TextColumn::make('source')
+                    ->label('Medio')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('donation_month')
+                    ->label('Mes')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('donation_year')
+                    ->label('Año')
+                    ->sortable()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('amount')
-                    ->label('Monto'),
+                    ->label('Cantidad'),
             ])
             ->filters([
                 //
