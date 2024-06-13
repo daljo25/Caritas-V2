@@ -298,7 +298,7 @@ class BeneficiaryResource extends Resource
                 Tables\Columns\TextColumn::make('age')
                     ->label('Edad')
                     ->sortable()
-                    ->state(function (Beneficiary $record): ?string{
+                    ->state(function (Beneficiary $record): ?string {
                         return Carbon::parse($record->birth_date)->age;
                     })
                     ->toggleable(isToggledHiddenByDefault: false),
@@ -337,8 +337,8 @@ class BeneficiaryResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\Action::make('pdf') 
-                    ->label('PDF')
+                Tables\Actions\Action::make('intervention')
+                    ->label('Interv')
                     ->color('success')
                     ->icon('tabler-download')
                     ->action(function (Model $record) {
@@ -346,8 +346,19 @@ class BeneficiaryResource extends Resource
                             echo FacadePdf::loadHtml(
                                 Blade::render('pdf.intervention', ['record' => $record])
                             )->stream();
-                        },'Hoja de Intervención de ' . $record->name . '.pdf');
-                    })  , 
+                        }, 'Hoja de Intervención de ' . $record->name . '.pdf');
+                    }),
+                Tables\Actions\Action::make('data-protection')
+                    ->label('Protec Datos')
+                    ->color('info')
+                    ->icon('tabler-user-shield')
+                    ->action(function (Model $record) {
+                        return response()->streamDownload(function () use ($record) {
+                            echo FacadePdf::loadHtml(
+                                Blade::render('pdf.data-protection', ['record' => $record])
+                            )->stream();
+                        }, 'Hoja de Proteccion de Datos de ' . $record->name . '.pdf');
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -376,6 +387,4 @@ class BeneficiaryResource extends Resource
             'edit' => Pages\EditBeneficiary::route('/{record}/edit'),
         ];
     }
-    
-
 }
