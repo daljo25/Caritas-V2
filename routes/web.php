@@ -19,6 +19,3 @@ Route::get('/', function () {
 });
 Route::get('/dashboard/beneficiaries/export/beneficiaries', [ExportController::class, 'beneficiaries'])->name('export.beneficiaries');
 Route::get('/dashboard/aids/export/aids', [ExportController::class, 'aids'])->name('export.aids');
-Route::get('/dp', function () {
-    return view('/pdf/data-protection');
-});
