@@ -72,6 +72,11 @@ class BeneficiaryResource extends Resource
                                             ->required()
                                             ->maxLength(255)
                                             ->label('Nombres y Apellidos'),
+                                            Forms\Components\TextInput::make('id')
+                                            ->maxLength(255)
+                                            ->label('Número')
+                                            ->hiddenOn('create')
+                                            ->readOnly(true),
                                         Forms\Components\TextInput::make('expedient')
                                             ->maxLength(255)
                                             ->label('Nº de Expediente'),
@@ -263,8 +268,8 @@ class BeneficiaryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('volunteer.name')
-                    ->label('Voluntario')
+                Tables\Columns\TextColumn::make('id')
+                    ->label('Nº')
                     ->sortable()
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: false),

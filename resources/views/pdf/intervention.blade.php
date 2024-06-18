@@ -67,7 +67,8 @@
     <div class="text-center"><h2>Hoja de Intervención</h2></div>
     <table>
         <tr>
-            <td width="20%">Nº Exp: {{ $record->expedient }}</td>
+            <td width="10%">Nº: {{ $record->id }}</td>
+            <td width="10%">Exp: {{ $record->expedient }}</td>
             <td width="50%">Nombre: {{ $record->name }} </td>
             <td width="30%">Atención: {{ $record->Volunteer->name }} </td>
         </tr>
@@ -76,17 +77,18 @@
     <table>
         <tr>
             <td>Fecha: {{ date("d/m/Y") }}</td>
-            <td>DNI/NIE/PAS: {{ $record->dni }}</td>
+            <td colspan="2">DNI/NIE/PAS: {{ $record->dni }}</td>
             <td>Caducidad: {{ \Carbon\Carbon::parse($record->expiration_date)->format('d/m/Y') }}</td>
         </tr>
         <tr>
             <td>Domicilio: {{ $record->address }}</td>
-            <td>Telf: {{ $record->phone }}</td>
+            <td colspan="2">Telf: {{ $record->phone }}</td>
             <td>Correo: {{ $record->email }}</td>
         </tr>
         <tr>
             <td>Fecha de Nacimiento: {{ \Carbon\Carbon::parse($record->birth_date)->format('d/m/Y') }}</td>
             <td>Edad: {{  \Carbon\Carbon::parse($record->birth_date)->age }}</td>
+            <td>Nacionalidad: {{ $record->nationality }}</td>
             <td>Formacion: {{ $record->education }}</td>
         </tr>
     </table><br>
@@ -96,6 +98,7 @@
             <td width="20%">Miembros</td>
             <td width="10%">DNI/NIE/PAS</td>
             <td width="10%">Caducidad</td>
+            <td width="10%">Nacionalidad</td>
             <td width="10%">Parentesco</td>
             <td width="10%">F. Nac.</td>
             <td width="10%">Edad</td>
@@ -106,6 +109,7 @@
                 <td>{{ $member->name }}</td>
                 <td>{{ $member->dni }}</td>
                 <td>{{ \Carbon\Carbon::parse($member->expiration_date)->format('d/m/Y') }}</td>
+                <td>{{ $member->nationality }}</td>
                 <td>{{ $member->relationship }}</td>
                 <td>{{ \Carbon\Carbon::parse($member->birth_date)->format('d/m/Y') }}</td>
                 <td>{{ \Carbon\Carbon::parse($member->birth_date)->age }}</td>
