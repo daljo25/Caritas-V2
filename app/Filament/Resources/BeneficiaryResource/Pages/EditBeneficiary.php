@@ -20,7 +20,7 @@ class EditBeneficiary extends EditRecord
             Action::make('intervention')
                 ->label('Hoja de Intervención')
                 ->color('success')
-                ->icon('tabler-download')
+                ->icon('tabler-printer')
                 ->action(function (Model $record) {
                     return response()->streamDownload(function () use ($record) {
                         echo FacadePdf::loadHtml(
