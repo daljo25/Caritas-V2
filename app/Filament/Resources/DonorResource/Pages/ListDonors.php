@@ -6,12 +6,15 @@ use App\Exports\DonationsExport;
 use App\Filament\Resources\DonorResource;
 use App\Models\Donation;
 use App\Models\Donor;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Filament\Actions;
 use Filament\Actions\Action;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Blade;
 use Maatwebsite\Excel\Facades\Excel as FacadesExcel;
 
 class ListDonors extends ListRecords
@@ -66,6 +69,35 @@ class ListDonors extends ListRecords
                     $filename = $data['filename'] ?? 'Lista de Donaciones';
                     // Descargar el archivo de Excel
                     return FacadesExcel::download($export, $filename . '.xlsx');
+                }),
+            Action::make('pdf')
+                ->label('Donaciones Anuales')
+                ->color('success')
+                ->icon('tabler-file-type-pdf')
+                ->form([
+                    Select::make('donation_year')
+                        ->label('Año')
+                        ->options(Donation::query()->pluck('donation_year', 'donation_year')->unique()->toArray())
+                ])
+                ->action(function (array $data) {
+                    // Obtener el año de donaciones
+                    $year = $data['donation_year'];
+
+                    // Obtener las donaciones del año seleccionado
+                    $donations = Donation::where('donation_year', $year)
+                        ->with('donor')
+                        ->get()
+                        ->groupBy('donor_id');
+
+                    // Renderizar la vista Blade y generar el PDF
+                    $pdfContent = Blade::render('pdf.donors', ['donations' => $donations, 'year' => $year]);
+                    $pdf = FacadePdf::loadHtml($pdfContent)
+                        ->setPaper('a4', 'landscape');
+
+                    // Enviar el PDF al navegador para su descarga
+                    return response()->streamDownload(function () use ($pdf) {
+                        echo $pdf->stream();
+                    }, 'Donaciones_Anuales_' . $year . '.pdf',);
                 }),
             Actions\CreateAction::make(),
         ];
