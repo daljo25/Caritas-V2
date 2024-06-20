@@ -16,7 +16,7 @@ class StatsOverview extends BaseWidget
         return [
             Stat::make('Total de Familias', $this->totalbeneficiaries()),
             Stat::make('Ayudas en el Año', $this->totalaids()),
-            Stat::make('Total de Ayudas', '€ '.$this->totalAidsAmount()),
+            Stat::make('Total de Ayudas', '€ '.number_format($this->totalAidsAmount(), 2, ',', '.')),
         ];
     }
 
