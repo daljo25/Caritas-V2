@@ -158,6 +158,8 @@ class AppointmentResource extends Resource
                                 'Cancelada' => 'Cancelada',
                                 'No Contesta' => 'No Contesta',
                                 'Documentos Incompletos' => 'Documentos Incompletos',
+                                'Rechazada' => 'Rechazada',
+                                'Atendida' => 'Atendida',
                             ])
                             ->default('Pendiente'),
                     ])
