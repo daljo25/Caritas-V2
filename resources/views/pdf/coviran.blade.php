@@ -97,7 +97,7 @@ Quedando agradecido por su colaboracion.
 <br><br>
 <table>
     <tr class="text-center bold">
-        <td>EXPEDIENTE</td>
+        <td>NUMERO</td>
         <td>TITULAR</td>
         <td>DNI/NIE/PAS</td>
         <td>CANTIDAD</td>
@@ -107,7 +107,7 @@ Quedando agradecido por su colaboracion.
              ->with('Beneficiary')
              ->get() as $aid)
         <tr class="text-center">
-            <td>{{$aid->Beneficiary->expedient}}</td>
+            <td>{{$aid->Beneficiary->id}}</td>
             <td>{{$aid->Beneficiary->name}}</td>
             <td>{{$aid->Beneficiary->dni}}</td>
             <td>{{$aid->approved_amount}}</td>

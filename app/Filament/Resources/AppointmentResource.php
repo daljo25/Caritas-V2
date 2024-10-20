@@ -172,16 +172,23 @@ class AppointmentResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('beneficiary.name')
+                    ->searchable()
+                    ->label('Usuario')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('appointment_date')
+                    ->label('Fecha de la Cita')
                     ->date()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('appointment_time'),
+                Tables\Columns\TextColumn::make('appointment_time')
+                    ->sortable()
+                    ->label('Hora de la Cita'),
                 Tables\Columns\TextColumn::make('notes')
-                    ->searchable(),
+                    ->searchable()
+                    ->label('Notas'),
                 Tables\Columns\TextColumn::make('status')
-                    ->searchable(),
+                    ->searchable()
+                    ->label('Estado'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

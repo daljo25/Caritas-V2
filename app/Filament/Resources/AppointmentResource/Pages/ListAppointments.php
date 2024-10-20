@@ -21,7 +21,7 @@ class ListAppointments extends ListRecords
     {
         return [
             Action::make('pdf')
-                ->label('Donaciones Anuales')
+                ->label('Listado de Citas')
                 ->color('success')
                 ->icon('tabler-file-type-pdf')
                 ->form([
