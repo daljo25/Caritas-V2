@@ -13,8 +13,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command('aids:update-status')->monthly()->sendOutputTo($filePath);
-        $schedule->command('beneficiaries:update-state')->monthly()->sendOutputTo($filePath);
+        $schedule->command('aids:update-status')->monthly()->sendOutputTo($filePath = storage_path('logs/aids.log'));
+        $schedule->command('beneficiaries:update-state')->monthly()->sendOutputTo($filePath = storage_path('logs/beneficiaries.log'));
     }
 
     /**
